@@ -1,0 +1,25 @@
+{
+  "name": "backend-practice",
+  "version": "1.0.0",
+  "description": "This is a tutorial to learn Node, Express, and MongoDB",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnpham0527/backend-practice.git"
+  },
+  "keywords": [
+    "tutorial",
+    "Node",
+    "Express",
+    "MongoDB"
+  ],
+  "author": "John Pham",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/johnpham0527/backend-practice/issues"
+  },
+  "homepage": "https://github.com/johnpham0527/backend-practice#readme"
+}
