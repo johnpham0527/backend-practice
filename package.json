@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/johnpham0527/backend-practice/issues"
   },
-  "homepage": "https://github.com/johnpham0527/backend-practice#readme"
+  "homepage": "https://github.com/johnpham0527/backend-practice#readme",
+  "devDependencies": {
+    "express": "^4.17.1"
+  }
 }
