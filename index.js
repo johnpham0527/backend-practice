@@ -5,7 +5,7 @@ app.get("/", (req, res) => {
     res.send("Hello world!");
 });
 
-app.get("api/timestamp", (req, res) => {
+app.get("/api/timestamp", (req, res) => {
     res.send("Request for Timestamp API received.")
 })
 
