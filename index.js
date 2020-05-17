@@ -6,7 +6,8 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/timestamp", (req, res) => {
-    res.send("Request for Timestamp API received.")
+    let d = new Date();
+    res.send(`Request for Timestamp API received. The current time is ${d}`);
 })
 
 app.listen(3000, () => {
