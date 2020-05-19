@@ -15,10 +15,16 @@ app.get("/api/timestamp", (req, res) => {
 })
 
 app.get("/api/timestamp/:time", (req, res) => {
-    console.log(typeof req.params.time);
+    let date;
 
-    let date = new Date(req.params.time);
-    
+    //check to see if req.params.time is not a number
+    if (isNaN(req.params.time)) { //it's not a number, so process it as a string
+        date = new Date(req.params.time);
+    }
+    else { //it's a number, so process it as a number
+        date = new Date(parseInt(req.params.time));
+    }
+            
     if (isValidDate(date)) {
         res.send({
             "unix": date.getTime(),
@@ -30,6 +36,7 @@ app.get("/api/timestamp/:time", (req, res) => {
             "error": "Invalid Date"
         });
     }
+
 })
 
 app.listen(3000, () => {
