@@ -15,6 +15,8 @@ app.get("/api/timestamp", (req, res) => {
 })
 
 app.get("/api/timestamp/:time", (req, res) => {
+    console.log(typeof req.params.time);
+
     let date = new Date(req.params.time);
     
     if (isValidDate(date)) {
