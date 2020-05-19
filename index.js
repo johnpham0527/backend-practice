@@ -6,11 +6,14 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/timestamp", (req, res) => {
-    let d = new Date("2020-12-25");
-    res.send(`Request for Timestamp API received. The set date is ${d}.`);
+    let date = new Date();
+    res.send({
+        "unix": date.getTime(),
+        "utc": date.toUTCString()
+    });
 })
 
-app.get("/api/test/:time", (req, res) => {
+app.get("/api/timestamp/:time", (req, res) => {
     res.send(`Received a time. It is ${req.params.time}`)
 })
 
