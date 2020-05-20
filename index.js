@@ -1,7 +1,12 @@
 const express = require('express');
 const app = express();
+const expressip = require('express-ip');
+
+app.use(expressip().getIpInfoMiddleware);
 
 app.get("/api/whoami", (req, res) => {
+
+    console.log(req.ipInfo);
 
     software = req.headers["user-agent"];
     language = req.headers["accept-language"];
