@@ -2,7 +2,14 @@ const express = require('express');
 const app = express();
 
 app.get("/api/whoami", (req, res) => {
-    res.send("Hello word!")
+
+    software = req.headers["user-agent"];
+    language = req.headers["accept-language"];
+
+    res.send({
+        "language": language,
+        "software": software
+    })
 })
 
 app.listen(3000, () => {
