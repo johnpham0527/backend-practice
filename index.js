@@ -1,6 +1,16 @@
 const express = require('express');
 const app = express();
 
+app.get("/api/whoami", (req, res) => {
+    res.send("Hello word!")
+})
+
+app.listen(3000, () => {
+    console.log("Request Header Parser Microservice is ready.");
+});
+
+/*
+Timestamp Project
 const isValidDate = (date) => {
     return date instanceof Date && !isNaN(date);
 }
@@ -36,9 +46,5 @@ app.get("/api/timestamp/:time", (req, res) => {
             "error": "Invalid Date"
         });
     }
-
 })
-
-app.listen(3000, () => {
-    console.log("Timestamp Microservice is ready.");
-});
+*/
