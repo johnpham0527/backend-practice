@@ -204,6 +204,24 @@ app.get('/create-and-save-person', function(req, res, next) {
          pers.remove();
        });
     });
+});
+
+app.get('/find-by-id', function(req, res, next) {
+    var t = setTimeout(() => { next({message: 'timeout'}) }, timeout);
+    var p = new Person({name: 'test', age: 0, favoriteFoods: ['none']});
+    p.save(function(err, pers) {
+      if(err) { return next(err) }
+      findPersonById(pers._id, function(err, data) {
+        clearTimeout(t);
+        if(err) { return next(err) }
+        if(!data) {
+          console.log('Missing `done()` argument');
+          return next({message: 'Missing callback argument'});
+        }
+        res.json(data);
+        p.remove();
+      });
+    });
   });
 
 
