@@ -241,8 +241,10 @@ app.post('/find-one-by-food', function(req, res, next) {
     });
   });
 
-app.get('/find-by-id', function(req, res, next) {
+app.get('/find-by-id/:userID', function(req, res, next) {
     var t = setTimeout(() => { next({message: 'timeout'}) }, timeout);
+    
+    /*
     var p = new Person({name: 'test', age: 0, favoriteFoods: ['none']});
     p.save(function(err, pers) {
       if(err) { return next(err) }
@@ -257,7 +259,22 @@ app.get('/find-by-id', function(req, res, next) {
         p.remove();
       });
     });
+    */
+
+    //res.send(req.params.userID);
+
+    findPersonById(req.params.userID, function (err, data) {
+        if (err) {
+            return next(err);
+        }
+        else {
+            res.json(data);
+        }
+    });
+
   });
+
+
 
 app.post('/find-edit-save', function(req, res, next) {
     var t = setTimeout(() => { next({message: 'timeout'}) }, timeout);
