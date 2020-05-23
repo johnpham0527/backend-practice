@@ -17,7 +17,9 @@ mongoose.connect(
       useUnifiedTopology: true 
     }
   ); 
-  
+
+
+/*** Mongoose */
 const Schema = mongoose.Schema;
 
 const personSchema = new Schema(
@@ -160,8 +162,17 @@ var removeManyPeople = function(done) {
     });
 };
 
+/** Router */
+router.get('/is-mongoose-ok', function(req, res) {
+    if (mongoose) {
+      res.json({isMongooseOk: !!mongoose.connection.readyState})
+    } else {
+      res.json({isMongooseOk: false})
+    }
+  });
 
 
+/** Who Am I API */
 app.get("/api/whoami", (req, res) => {
 
     let ipaddress = req.ipInfo.ip;
