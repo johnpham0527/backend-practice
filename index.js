@@ -4,6 +4,7 @@ const expressip = require('express-ip');
 const mongoose = require('mongoose');
 require('dotenv').config({ path: '.env' });
 const router = express.Router();
+const bodyParser = require('body-parser');
 
 mongoose.connect(
     process.env.MONGO_URI,
