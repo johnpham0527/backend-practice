@@ -201,7 +201,7 @@ app.get('/create-and-save-person', function(req, res, next) {
        Person.findById(data._id, function(err, pers) {
          if(err) { return (next(err)); }
          res.json(pers);
-         pers.remove();
+         //pers.remove();
        });
     });
 });
