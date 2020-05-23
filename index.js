@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const expressip = require('express-ip');
 const mongoose = require('mongoose');
+require('dotenv').config({ path: '.env' });
 
 mongoose.connect(
     process.env.MONGO_URI,
