@@ -6,6 +6,10 @@ require('dotenv').config({ path: '.env' });
 const router = express.Router();
 const bodyParser = require('body-parser');
 
+app.use(bodyParser.urlencoded({extended: 'false'}));
+app.use(bodyParser.json());
+app.use(expressip().getIpInfoMiddleware);
+
 mongoose.connect(
     process.env.MONGO_URI,
     { 
@@ -157,9 +161,6 @@ var removeManyPeople = function(done) {
 };
 
 
-
-
-app.use(expressip().getIpInfoMiddleware);
 
 app.get("/api/whoami", (req, res) => {
 
