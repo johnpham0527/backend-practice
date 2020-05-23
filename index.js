@@ -259,6 +259,29 @@ app.get('/find-by-id', function(req, res, next) {
     });
   });
 
+app.post('/find-edit-save', function(req, res, next) {
+    var t = setTimeout(() => { next({message: 'timeout'}) }, timeout);
+    var p = new Person(req.body);
+    p.save(function(err, pers) {
+        if(err) { return next(err) }
+        try {
+        findEditThenSave(pers._id, function(err, data) {
+            clearTimeout(t);
+            if(err) { return next(err) }
+            if(!data) {
+            console.log('Missing `done()` argument');
+            return next({message: 'Missing callback argument'});
+            }
+            res.json(data);
+            p.remove();
+        });
+        } catch (e) {
+        console.log(e);
+        return next(e);
+        }
+    });
+});
+
 
 app.listen(3000, () => {
     console.log("Mongoose Project is ready.");
