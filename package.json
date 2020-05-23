@@ -27,5 +27,8 @@
     "express-ip": "^1.0.4",
     "ngrok": "^3.2.7",
     "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "mongoose": "^5.9.15"
   }
 }

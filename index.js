@@ -6,9 +6,9 @@ app.use(expressip().getIpInfoMiddleware);
 
 app.get("/api/whoami", (req, res) => {
 
-    ipaddress = req.ipInfo.ip;
-    software = req.headers["user-agent"];
-    language = req.headers["accept-language"];
+    let ipaddress = req.ipInfo.ip;
+    let software = req.headers["user-agent"];
+    let language = req.headers["accept-language"];
 
     res.send({
         "ipaddress": ipaddress,
