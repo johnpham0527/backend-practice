@@ -9,6 +9,10 @@ app.use(bodyParser.urlencoded({extended: 'false'}));
 app.use(bodyParser.json());
 app.use(expressip().getIpInfoMiddleware);
 
+// global setting for safety timeouts to handle possible
+// wrong callbacks that will never be called
+var timeout = 10000;
+
 mongoose.connect(
     process.env.MONGO_URI,
     { 
@@ -179,12 +183,28 @@ app.use(function(req, res, next) {
 });
 
 app.get('/mongoose-model', function(req, res, next) {
-    // try to create a new instance based on their model
-    // verify it's correctly defined in some way
     var p;
     p = new Person(req.body);
     res.json(p);
 });
+
+app.get('/create-and-save-person', function(req, res, next) {
+    // in case of incorrect function use wait timeout then respond
+    var t = setTimeout(() => { next({message: 'timeout'}) }, timeout);
+    createPerson(function(err, data) {
+      clearTimeout(t);
+      if(err) { return (next(err)); }
+      if(!data) {
+        console.log('Missing `done()` argument');
+        return next({message: 'Missing callback argument'});
+      }
+       Person.findById(data._id, function(err, pers) {
+         if(err) { return (next(err)); }
+         res.json(pers);
+         pers.remove();
+       });
+    });
+  });
 
 
 app.listen(3000, () => {
