@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const expressip = require('express-ip');
+const mongoose = require('mongoose');
 
 app.use(expressip().getIpInfoMiddleware);
 
