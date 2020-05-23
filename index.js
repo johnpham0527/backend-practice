@@ -178,13 +178,13 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.post('/mongoose-model', function(req, res, next) {
+app.get('/mongoose-model', function(req, res, next) {
     // try to create a new instance based on their model
     // verify it's correctly defined in some way
     var p;
     p = new Person(req.body);
     res.json(p);
-  });
+});
 
 
 app.listen(3000, () => {
