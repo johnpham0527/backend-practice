@@ -161,12 +161,21 @@ var removeManyPeople = function(done) {
     });
 };
 
+/*** Mongoose Routes */
+
 app.get('/is-mongoose-ok', function(req, res) {
     if (mongoose) {
       res.json({isMongooseOk: !!mongoose.connection.readyState})
     } else {
       res.json({isMongooseOk: false})
     }
+});
+
+app.use(function(req, res, next) {
+    if(req.method !== 'OPTIONS' && Person.modelName !== 'Person') { 
+      return next({message: 'Person Model is not correct'});
+    }
+    next();
 });
 
 
