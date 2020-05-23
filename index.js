@@ -189,6 +189,17 @@ app.get('/mongoose-model', function(req, res, next) {
 });
 
 app.get('/create-and-save-person', function(req, res, next) {
+    /*
+    I want to update this function so that it can check to see if parameters exist. 
+    The parameters are name, age, and favoriteFoods.
+    They can be called like this: /create-and-save-person?name=John&age&33&favoriteFoods=strawberries,blueberries
+    Need to call req.query.favoriteFoods.split(',')
+    If no parameters exist, do not create anything.
+
+    //var p = new Person({name: 'test', age: 0, favoriteFoods: ['none']});
+    */
+
+
     // in case of incorrect function use wait timeout then respond
     var t = setTimeout(() => { next({message: 'timeout'}) }, timeout);
     createAndSavePerson(function(err, data) {
@@ -205,6 +216,9 @@ app.get('/create-and-save-person', function(req, res, next) {
        });
     });
 });
+
+
+
 
 app.post('/find-all-by-name', function(req, res, next) {
     var t = setTimeout(() => { next({message: 'timeout'}) }, timeout);
@@ -262,6 +276,7 @@ app.get('/find-by-id/:userID', function(req, res, next) {
     */
 
     //res.send(req.params.userID);
+    //5ec97c439df40c325d2545b3
 
     findPersonById(req.params.userID, function (err, data) {
         if (err) {
