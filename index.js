@@ -3,7 +3,6 @@ const app = express();
 const expressip = require('express-ip');
 const mongoose = require('mongoose');
 require('dotenv').config({ path: '.env' });
-const router = express.Router();
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.urlencoded({extended: 'false'}));
@@ -162,14 +161,13 @@ var removeManyPeople = function(done) {
     });
 };
 
-/** Router */
-router.get('/is-mongoose-ok', function(req, res) {
+app.get('/is-mongoose-ok', function(req, res) {
     if (mongoose) {
       res.json({isMongooseOk: !!mongoose.connection.readyState})
     } else {
       res.json({isMongooseOk: false})
     }
-  });
+});
 
 
 /** Who Am I API */
