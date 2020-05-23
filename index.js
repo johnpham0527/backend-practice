@@ -186,7 +186,13 @@ app.post('/mongoose-model', function(req, res, next) {
     res.json(p);
   });
 
+
+app.listen(3000, () => {
+    console.log("Mongoose Project is ready.");
+});
+
 /** Who Am I API */
+/*
 app.get("/api/whoami", (req, res) => {
 
     let ipaddress = req.ipInfo.ip;
@@ -199,10 +205,8 @@ app.get("/api/whoami", (req, res) => {
         "software": software
     })
 })
+*/
 
-app.listen(3000, () => {
-    console.log("Request Header Parser Microservice is ready.");
-});
 
 /*
 Timestamp Project
