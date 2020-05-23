@@ -305,6 +305,37 @@ app.post('/find-one-update', function(req, res, next) {
     });
   });
   
+app.post('/remove-one-person', function(req, res, next) {
+    Person.remove({}, function(err) {
+        if(err) { return next(err) }
+        var t = setTimeout(() => { next({message: 'timeout'}) }, timeout);
+        var p = new Person(req.body);
+        p.save(function(err, pers) {
+        if(err) { return next(err) }
+        try {
+            removeById(pers._id, function(err, data) {
+            clearTimeout(t);
+            if(err) { return next(err) }
+            if(!data) {
+                console.log('Missing `done()` argument');
+                return next({message: 'Missing callback argument'});
+            }
+            console.log(data)
+            Person.count(function(err, cnt) {
+                if(err) { return next(err) }
+                data = data.toObject();
+                data.count = cnt;
+                console.log(data)
+                res.json(data);
+            })
+            });
+        } catch (e) {
+            console.log(e);
+            return next(e);
+        }
+        });
+    });
+});
 
 
 app.listen(3000, () => {
