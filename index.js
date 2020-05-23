@@ -337,6 +337,46 @@ app.post('/remove-one-person', function(req, res, next) {
     });
 });
 
+app.post('/remove-many-people', function(req, res, next) {
+    Person.remove({}, function(err) {
+      if(err) { return next(err) }
+      var t = setTimeout(() => { next({message: 'timeout'}) }, timeout);
+      Person.create(req.body, function(err, pers) {
+        if(err) { return next(err) }
+        try {
+          removeManyPeople(function(err, data) {
+            clearTimeout(t);
+            if(err) { return next(err) }
+            if(!data) {
+              console.log('Missing `done()` argument');
+              return next({message: 'Missing callback argument'});
+            }
+            Person.count(function(err, cnt) {
+              if(err) { return next(err) }
+              if (data.ok === undefined) {
+                // for mongoose v4
+                 try {
+                  data = JSON.parse(data);
+                } catch (e) {
+                  console.log(e);
+                  return next(e);
+                }
+              }
+              res.json({
+                n: data.n,
+                count: cnt,
+                ok: data.ok
+              });
+            })
+          });
+        } catch (e) {
+          console.log(e);
+          return next(e);
+        }
+      });
+    })
+  });
+
 
 app.listen(3000, () => {
     console.log("Mongoose Project is ready.");
