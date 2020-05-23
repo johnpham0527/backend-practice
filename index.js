@@ -12,6 +12,150 @@ mongoose.connect(
     }
   ); 
   
+const Schema = mongoose.Schema;
+
+const personSchema = new Schema(
+{
+    name: {
+    type: String,
+    required: true
+    },
+    age: Number,
+    favoriteFoods: [String]
+}
+);
+
+const Person = mongoose.model("Person", personSchema);
+
+var createAndSavePerson = function(done) {
+  var johnPham = new Person({name: "John Pham", age: 33, favoriteFoods: ["broccoli", "kale"]});
+
+  johnPham.save(function (err, data) {
+    if (err) {
+      done(err);
+    }
+    done(null, data)
+  });
+};
+
+let arrayOfPeople = [
+    {name: "Leanna Pham", age: 3, favoriteFoods: ["blueberries", "smoothie"]},
+    {name: "Yunji Pham", age: 38, favoriteFoods: ["apples", "bananas"]} 
+   ];
+   
+var createManyPeople = function(arrayOfPeople, done) {
+    
+    Person.create(arrayOfPeople, function (err, people) {
+        if (err) {
+        done(err);
+        }
+        done(null, people);
+    });
+    
+};
+
+var findPeopleByName = function(personName, done) {
+
+Person.find({name: personName}, function (err, personFound) {
+    if (err) {
+    done(err);
+    }
+    done(null, personFound);
+});
+
+};
+
+var findOneByFood = function(food, done) {
+
+    Person.findOne({favoriteFoods: food}, function(err, personFound) {
+      if (err) {
+        done(err);
+      }
+      else {
+        done(null, personFound);
+      } 
+    });
+    
+};
+
+var findPersonById = function(personId, done) {
+  
+  
+    Person.findById({_id: personId}, function(err, personFound) {
+     if(err) {
+       done(err);
+     }  
+     else {
+       done(null, personFound);
+     } 
+    });
+    
+};
+
+var findEditThenSave = function(personId, done) {
+    var foodToAdd = 'hamburger';
+    
+    Person.findById({_id: personId}, function (err, personFound) {
+      if (err) {
+        done(err);
+      } 
+      else {
+        personFound.favoriteFoods.push(foodToAdd);
+        personFound.save(function (err, data) {
+          if (err) {
+            done(err);
+          }
+          else {
+            done(null, data);
+          }
+        });
+      }
+    });
+    
+};
+
+var findAndUpdate = function(personName, done) {
+    var ageToSet = 20;
+  
+    let person = Person.findOneAndUpdate({name: personName}, {age: ageToSet}, {new: true}, function(err, data) {
+      if (err) {
+        done(err);
+      }
+      else {
+        done(null, data);
+      }
+    });
+    
+};
+
+var removeById = function(personId, done) {
+  
+  
+    var person = Person.findByIdAndRemove({_id: personId}, function(err, data) {
+      if (err) {
+        done(err);
+      } 
+      else {
+        done(null, data);
+      } 
+    });
+};
+
+var removeManyPeople = function(done) {
+    var nameToRemove = "Mary";
+  
+    var people = Person.remove({name: nameToRemove}, function(err, data) {
+      if (err) {
+        done(err);
+      } 
+      else {
+        done(null, data);
+      } 
+    });
+};
+
+
+
 
 app.use(expressip().getIpInfoMiddleware);
 
