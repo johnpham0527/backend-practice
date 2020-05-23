@@ -206,6 +206,41 @@ app.get('/create-and-save-person', function(req, res, next) {
     });
 });
 
+app.post('/find-all-by-name', function(req, res, next) {
+    var t = setTimeout(() => { next({message: 'timeout'}) }, timeout);
+    Person.create(req.body, function(err, pers) {
+      if(err) { return next(err) }
+      findPersonByName(pers.name, function(err, data) {
+        clearTimeout(t);
+        if(err) { return next(err) }
+        if(!data) {
+          console.log('Missing `done()` argument');
+          return next({message: 'Missing callback argument'});
+        }
+        res.json(data);
+        Person.remove().exec();
+      });
+    });
+});
+
+app.post('/find-one-by-food', function(req, res, next) {
+    var t = setTimeout(() => { next({message: 'timeout'}) }, timeout);
+    var p = new Person(req.body);
+    p.save(function(err, pers) {
+      if(err) { return next(err) }
+      findOneByFood(pers.favoriteFoods[0], function(err, data) {
+        clearTimeout(t);
+        if(err) { return next(err) }
+        if(!data) {
+          console.log('Missing `done()` argument');
+          return next({message: 'Missing callback argument'});
+        }
+        res.json(data);
+        p.remove();
+      });
+    });
+  });
+
 app.get('/find-by-id', function(req, res, next) {
     var t = setTimeout(() => { next({message: 'timeout'}) }, timeout);
     var p = new Person({name: 'test', age: 0, favoriteFoods: ['none']});
