@@ -200,6 +200,8 @@ app.get('/create-and-save-person', function(req, res, next) {
     */
 
 
+    console.log(req.query.params);
+
     // in case of incorrect function use wait timeout then respond
     var t = setTimeout(() => { next({message: 'timeout'}) }, timeout);
     createAndSavePerson(function(err, data) {
