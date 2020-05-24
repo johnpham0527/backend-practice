@@ -200,7 +200,7 @@ app.get('/create-and-save-person', function(req, res, next) {
     */
 
 
-    console.log(req.query.params);
+    console.log(req.query);
 
     // in case of incorrect function use wait timeout then respond
     var t = setTimeout(() => { next({message: 'timeout'}) }, timeout);
@@ -214,7 +214,7 @@ app.get('/create-and-save-person', function(req, res, next) {
        Person.findById(data._id, function(err, pers) {
          if(err) { return (next(err)); }
          res.json(pers);
-         //pers.remove();
+         pers.remove();
        });
     });
 });
