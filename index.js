@@ -511,9 +511,17 @@ app.get('/api/shorturl/:url', function(req, res, next) {
       return next(err);
     }
 
+    let redirectedLink = data.original_url;
+    if (!redirectedLink.startsWith("http://") 
+     || !redirectedLink.startsWith("https://") 
+     || !redirectedLink.startsWith("ftp://")) {
+        redirectedLink = "http://" + redirectedLink;
+    }
+
     //res.redirect(301, data.original_url);
     //res.redirect(301, "www.google.com");
-    res.send(`Redirecting to ${data.original_url}`)
+    //res.send(`Redirecting to ${data.original_url}`)
+    res.send(`Redirecting to ${redirectedLink}`)
   })
 
 /*
