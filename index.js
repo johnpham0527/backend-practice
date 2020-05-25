@@ -449,10 +449,8 @@ const ShortURL = mongoose.model("ShortURL", urlSchema);
 
 var createAndSaveURL = function(link, done) {
   var newUrl = new ShortURL(
-    {
-      url: link
-    }
-  )
+    { url: link }
+  );
 
   newUrl.save(function(err, data) {
     if (err) {
@@ -461,7 +459,7 @@ var createAndSaveURL = function(link, done) {
     else {
       done(null, data);
     }
-  })
+  });
 };
 
 
@@ -479,13 +477,26 @@ app.post('/api/shorturl/new', function(req, res, next) {
     }
     else { //valid URL: proceed
       console.log('address: %j family: IPv%s', address, family);
-      res.send({
-        "original_url": originalUrl,
-        "short_url": null
+
+      var shortLink = new ShortURL({
+        url: originalUrl
+      });
+
+      createAndSaveURL(shortLink, function(err, data) {
+        if (err) {
+          return (next(err));
+        }
+
+        ShortURL.findById(data._id, function(err, link) {
+          if (err) {
+            return (next(err));
+          }
+
+          res.json(link);
+        });
       });
     }
   });
-
 })
 
 app.get('/api/shorturl/:url', function(req, res, next) {
