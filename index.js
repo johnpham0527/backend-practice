@@ -528,19 +528,29 @@ app.post('/api/shorturl/new', function(req, res, next) {
     }
     else { //valid URL: save and return response
       //Does this URL already exist in the database?
-      //Look for it and return its data if it is found
-
-
-      //It doesn't exist yet, so create it
-      createAndSaveURL(givenUrl, function(err, data) {
-        if (err) {
+      findURLByName(givenUrl, function(err, data) {
+        if (err) { //handle any errors
           return (next(err));
         }
-
-        res.json({
-          original_url: data.original_url,
-          short_url: data.short_url
-        });
+        
+        if (data) { //the data exists, so return its data
+          res.json({
+            original_url: data.original_url,
+            short_url: data.short_url
+          });
+        }
+        else { //It doesn't exist yet, so create it
+          createAndSaveURL(givenUrl, function(err, data) {
+            if (err) {
+              return (next(err));
+            }
+    
+            res.json({
+              original_url: data.original_url,
+              short_url: data.short_url
+            });
+          });
+        }
       });
     }
   });
