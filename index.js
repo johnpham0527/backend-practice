@@ -464,12 +464,12 @@ var createAndSaveURL = function(link, done) {
 
 
 var findURLByShortLink = function(shortLinkId, done) {
-  ShortURL.find({short_url: shortLinkId}, function(err, shortUrlFound) {
+  ShortURL.findOne({short_url: shortLinkId}, function(err, data) {
     if (err) {
       done(err);
     }
     else {
-      done(null, shortUrlFound);
+      done(null, data);
     }
   })
 };
@@ -502,14 +502,17 @@ app.post('/api/shorturl/new', function(req, res, next) {
 })
 
 app.get('/api/shorturl/:url', function(req, res, next) {
-  console.log(req.params.url);
 
-  findURLByShortLink(req.params.url, function(err, data) {
+  const shortLink = parseInt(req.params.url);
+  console.log(shortLink, typeof shortLink);
+
+  findURLByShortLink(shortLink, function(err, data) {
     if (err) {
       return next(err);
     }
 
-    res.redirect(data.original_url);
+    //res.redirect(data.original_url);
+    res.send(`Redirecting to ${data.original_url}`)
   })
 
 /*
