@@ -496,9 +496,9 @@ app.post('/api/shorturl/new', function(req, res, next) {
         });
               */
 
-      res.json({
-          original_url: shortLink.original_url,
-          short_url: null
+        res.json({
+          original_url: data.original_url,
+          short_url: data.short_url
         });
       });
     }
