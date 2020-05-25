@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 require('dotenv').config({ path: '.env' });
 const bodyParser = require('body-parser');
 const path = require('path');
+const dns = require('dns');
 
 express.static("/");
 app.use(express.static(path.join(__dirname, 'public')));
@@ -434,9 +435,17 @@ app.post('/remove-many-people', function(req, res, next) {
 
 
 app.post('/api/shorturl/new', function(req, res, next) {
-//To-do: figure out how to send POST request using Postman
-
   let originalUrl = req.body.url;
+
+  dns.lookup(originalUrl, (err, address, family) => {
+    if (err) {
+      console.log(err);
+    }
+    else {
+      console.log('address: %j family: IPv%s', address, family);
+    }
+  });
+
   res.send({
     "original_url": originalUrl,
     "short_url": null
