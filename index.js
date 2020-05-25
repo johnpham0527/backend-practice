@@ -463,7 +463,16 @@ var createAndSaveURL = function(link, done) {
 };
 
 
-var findURLByShortLink;
+var findURLByShortLink = function(shortLinkId, done) {
+  ShortURL.find({short_url: shortLinkId}, function(err, shortUrlFound) {
+    if (err) {
+      done(err);
+    }
+    else {
+      done(null, shortUrlFound);
+    }
+  })
+};
 
 app.post('/api/shorturl/new', function(req, res, next) {
   let givenUrl = req.body.url;
