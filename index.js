@@ -462,7 +462,6 @@ var createAndSaveURL = function(link, done) {
   });
 };
 
-
 var findURLByShortLink = function(shortLinkId, done) {
   ShortURL.findOne({short_url: shortLinkId}, function(err, data) {
     if (err) {
@@ -474,11 +473,25 @@ var findURLByShortLink = function(shortLinkId, done) {
   })
 };
 
+const isValidUrl = (url) => {
+  if (url.startsWith("http://" || url.startsWith("https://"))) {
+    return true;
+  }
+  return false;
+}
+
 app.post('/api/shorturl/new', function(req, res, next) {
   let givenUrl = req.body.url;
 
+  if (!isValidUrl(givenUrl)) { //this is not a valid URL because it doesn't start with http:// or https://
+    console.log(err);
+    res.send({
+      "error": "invalid URL"
+    });
+  }
+
   dns.lookup(givenUrl, (err, address, family) => { //look up URL
-    if (err) { //Invalid URL: send error response
+    if (err) { //invalid URL: send error response
       console.log(err);
       res.send({
         "error": "invalid URL"
@@ -512,16 +525,17 @@ app.get('/api/shorturl/:url', function(req, res, next) {
     }
 
     let redirectedLink = data.original_url;
+    console.log(redirectedLink);
     if (!redirectedLink.startsWith("http://") 
      || !redirectedLink.startsWith("https://") 
      || !redirectedLink.startsWith("ftp://")) {
         redirectedLink = "http://" + redirectedLink;
     }
 
-    //res.redirect(301, data.original_url);
+    res.redirect(301, redirectedLink);
     //res.redirect(301, "www.google.com");
     //res.send(`Redirecting to ${data.original_url}`)
-    res.send(`Redirecting to ${redirectedLink}`)
+    //res.send(`Redirecting to ${redirectedLink}`)
   })
 
 /*
