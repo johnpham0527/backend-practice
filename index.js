@@ -425,6 +425,12 @@ app.post('/remove-many-people', function(req, res, next) {
   });
 
 
+/*** URL Shortener Microservice */
+app.get('/api/shorturl/:url', function(req, res, next) {
+  console.log(req.params.url);
+})
+
+
 app.listen(3000, () => {
     console.log("Mongoose Project is ready.");
 });
