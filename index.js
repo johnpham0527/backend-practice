@@ -207,9 +207,10 @@ app.get('/create-and-save-person', function(req, res, next) {
     
     const name = req.query.name || null;
     const age = req.query.age || null;
-    const favoriteFoods = req.query.favoriteFoods.split(',') || null;
+    const favoriteFoods = req.query.favoriteFoods || null;
+    const favoriteFoodsArray = favoriteFoods ? favoriteFoods.split(',') : null;
 
-    console.log(name, age, favoriteFoods);
+    console.log(name, age, favoriteFoodsArray);
     
 
 
