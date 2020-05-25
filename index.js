@@ -442,6 +442,8 @@ app.post('/api/shorturl/new', function(req, res, next) {
     "original_url": originalUrl
   });
   */
+  console.log(req.params.url);
+  res.send(`Received request to create new URL: ${req.params.url}`)
 })
 
 app.get('/api/shorturl/:url', function(req, res, next) {
