@@ -438,7 +438,8 @@ app.post('/api/shorturl/new', function(req, res, next) {
 
   let originalUrl = req.body.url;
   res.send({
-    "original_url": originalUrl
+    "original_url": originalUrl,
+    "short_url": null
   });
 
   console.log(req.body);
