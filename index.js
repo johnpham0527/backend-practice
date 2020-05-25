@@ -473,6 +473,11 @@ app.post('/api/shorturl/new', function(req, res, next) {
 
 app.get('/api/shorturl/:url', function(req, res, next) {
   console.log(req.params.url);
+
+  if (req.params.url === "1") {
+    res.redirect("http://www.google.com");
+  }
+
   res.send(`Received ${req.params.url}`)
 })
 
