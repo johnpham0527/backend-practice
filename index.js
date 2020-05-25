@@ -196,16 +196,22 @@ app.get('/create-and-save-person', function(req, res, next) {
     Need to call req.query.favoriteFoods.split(',')
     If no parameters exist, do not create anything.
 
+    Figure out how to create a new Person if certain parameters aren't provided (such as age or favoriteFoods)
+
     //var p = new Person({name: 'test', age: 0, favoriteFoods: ['none']});
     */
 
 
     console.log(req.query);
-    const name = req.query.name || "";
-    const age = req.query.age || "";
-    const favoriteFoods = req.query.favoriteFoods.split(',') || [];
+
+    
+    const name = req.query.name || null;
+    const age = req.query.age || null;
+    const favoriteFoods = req.query.favoriteFoods.split(',') || null;
 
     console.log(name, age, favoriteFoods);
+    
+
 
 
 
