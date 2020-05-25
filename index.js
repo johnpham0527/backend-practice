@@ -511,7 +511,8 @@ app.get('/api/shorturl/:url', function(req, res, next) {
       return next(err);
     }
 
-    //res.redirect(data.original_url);
+    //res.redirect(301, data.original_url);
+    //res.redirect(301, "www.google.com");
     res.send(`Redirecting to ${data.original_url}`)
   })
 
