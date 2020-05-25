@@ -427,7 +427,7 @@ app.post('/remove-many-people', function(req, res, next) {
 
 
 /*** URL Shortener Microservice */
-app.post('api/shorturl/new', function(req, res, next) {
+app.post('/api/shorturl/new', function(req, res, next) {
 //To-do: figure out how to send POST request using Postman
 
   //console.log(req.params.url);
