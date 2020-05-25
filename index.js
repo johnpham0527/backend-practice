@@ -496,11 +496,10 @@ app.post('/api/shorturl/new', function(req, res, next) {
   let givenUrl = req.body.url;
 
   if (!isValidUrl(givenUrl)) { //this is not a valid URL because it doesn't start with http:// or https://
-    console.log(`${givenUrl} is not a valid URL.`);
     res.send({
       "error": "invalid URL"
     });
-    return next({message: `${givenUrl} is not a valid URL.`});
+    return next(`${givenUrl} is not a valid URL.`);
   }
 
   let domain = stripHTTP(givenUrl);
