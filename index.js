@@ -474,6 +474,16 @@ var findURLByShortLink = function(shortLinkId, done) {
   })
 };
 
+var findURLbyName = function(givenUrl, done) {
+  ShortURL.findOne({original_url: givenUrl}, function(err, data) {
+    if (err) {
+      done(err);
+    }
+    else {
+      done(null, data);
+    }
+  })
+}
 const isValidUrl = (url) => {
   if (url.startsWith("http://") || url.startsWith("https://")) {
         return true;
@@ -517,6 +527,11 @@ app.post('/api/shorturl/new', function(req, res, next) {
       });
     }
     else { //valid URL: save and return response
+      //Does this URL already exist in the database?
+      //Look for it and return its data if it is found
+
+
+      //It doesn't exist yet, so create it
       createAndSaveURL(givenUrl, function(err, data) {
         if (err) {
           return (next(err));
