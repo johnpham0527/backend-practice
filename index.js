@@ -478,23 +478,16 @@ app.post('/api/shorturl/new', function(req, res, next) {
     else { //valid URL: save and return response
       console.log('address: %j family: IPv%s', address, family);
 
-      var shortLink = new ShortURL({
-        original_url: originalUrl
-      });
+      var shortLink = new ShortURL(
+        {
+          original_url: originalUrl
+        }
+      );
 
       createAndSaveURL(shortLink, function(err, data) {
         if (err) {
           return (next(err));
         }
-/*
-        ShortURL.findById(data._id, function(err, link) {
-          if (err) {
-            return (next(err));
-          }
-
-          res.json(link);
-        });
-              */
 
         res.json({
           original_url: data.original_url,
