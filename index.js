@@ -475,9 +475,10 @@ var findURLByShortLink = function(shortLinkId, done) {
 };
 
 const isValidUrl = (url) => {
-  if (url.startsWith("http://" || url.startsWith("https://"))) {
-    return true;
+  if (url.startsWith("http://") || url.startsWith("https://")) {
+        return true;
   }
+  console.log(`${url} is not a valid URL`);
   return false;
 }
 
