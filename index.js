@@ -23,7 +23,8 @@ mongoose.connect(
     process.env.MONGO_URI,
     { 
       useNewUrlParser: true, 
-      useUnifiedTopology: true 
+      useUnifiedTopology: true,
+      useCreateIndex: true
     }
   ); 
 
@@ -512,7 +513,6 @@ app.post('/api/shorturl/new', function(req, res, next) {
       });
     }
     else { //valid URL: save and return response
-
       createAndSaveURL(givenUrl, function(err, data) {
         if (err) {
           return (next(err));
