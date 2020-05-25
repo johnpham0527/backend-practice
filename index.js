@@ -437,21 +437,22 @@ app.post('/remove-many-people', function(req, res, next) {
 app.post('/api/shorturl/new', function(req, res, next) {
   let originalUrl = req.body.url;
 
-  dns.lookup(originalUrl, (err, address, family) => {
-    if (err) {
+  dns.lookup(originalUrl, (err, address, family) => { //look up URL
+    if (err) { //Invalid URL: send error response
       console.log(err);
+      res.send({
+        "error": "invalid URL"
+      });
     }
-    else {
+    else { //valid URL: proceed
       console.log('address: %j family: IPv%s', address, family);
+      res.send({
+        "original_url": originalUrl,
+        "short_url": null
+      });
     }
   });
 
-  res.send({
-    "original_url": originalUrl,
-    "short_url": null
-  });
-
-  console.log(req.body);
 })
 
 app.get('/api/shorturl/:url', function(req, res, next) {
