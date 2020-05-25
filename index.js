@@ -201,6 +201,13 @@ app.get('/create-and-save-person', function(req, res, next) {
 
 
     console.log(req.query);
+    const name = req.query.name || "";
+    const age = req.query.age || "";
+    const favoriteFoods = req.query.favoriteFoods.split(',') || [];
+
+    console.log(name, age, favoriteFoods);
+
+
 
     // in case of incorrect function use wait timeout then respond
     var t = setTimeout(() => { next({message: 'timeout'}) }, timeout);
