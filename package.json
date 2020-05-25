@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "dotenv": "^8.2.0",
-    "mongoose": "^5.9.15"
+    "mongoose": "^5.9.15",
+    "mongoose-sequence": "^5.2.2"
   }
 }
