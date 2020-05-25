@@ -432,19 +432,18 @@ app.post('/remove-many-people', function(req, res, next) {
   });
 
 
-/*** URL Shortener Microservice */
+/*** URL Shortener Microservice 
+*******************************/
 const urlSchema = new Schema(
   {
     url: {
       type: String,
       required: true
     },
-    shortLink: {
-      type: Number,
-      required: true
-    }
   }
 );
+
+urlSchema.plugin(AutoIncrement, {inc_field: 'shortUrlId'});
 
 const ShortURL = mongoose.model("ShortURL", urlSchema);
 
