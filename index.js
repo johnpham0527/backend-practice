@@ -443,6 +443,9 @@ const urlSchema = new Schema(
 
 const ShortURL = mongoose.model("ShortURL", urlSchema);
 
+var createAndSaveURL;
+var findURLByShortLink;
+
 app.post('/api/shorturl/new', function(req, res, next) {
   let originalUrl = req.body.url;
 
