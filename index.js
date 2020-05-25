@@ -480,17 +480,31 @@ const isValidUrl = (url) => {
   return false;
 }
 
+const stripHTTP = (validUrl) => {
+  if (validUrl.startsWith("http://")) {
+    return validUrl.substring(7);
+  }
+  else if (validUrl.startsWith("https://")) {
+    return validUrl.substring(8);
+  }
+
+  return validUrl;
+}
+
 app.post('/api/shorturl/new', function(req, res, next) {
   let givenUrl = req.body.url;
 
   if (!isValidUrl(givenUrl)) { //this is not a valid URL because it doesn't start with http:// or https://
-    console.log(err);
+    console.log(`${givenUrl} is not a valid URL.`);
     res.send({
       "error": "invalid URL"
     });
+    return (next(err));
   }
 
-  dns.lookup(givenUrl, (err, address, family) => { //look up URL
+  let domain = stripHTTP(givenUrl);
+
+  dns.lookup(domain, (err, address, family) => { //look up URL
     if (err) { //invalid URL: send error response
       console.log(err);
       res.send({
@@ -522,14 +536,6 @@ app.get('/api/shorturl/:url', function(req, res, next) {
   findURLByShortLink(shortLink, function(err, data) {
     if (err) {
       return next(err);
-    }
-
-    let redirectedLink = data.original_url;
-    console.log(redirectedLink);
-    if (!redirectedLink.startsWith("http://") 
-     || !redirectedLink.startsWith("https://") 
-     || !redirectedLink.startsWith("ftp://")) {
-        redirectedLink = "http://" + redirectedLink;
     }
 
     res.redirect(301, redirectedLink);
