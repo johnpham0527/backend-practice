@@ -437,6 +437,7 @@ app.post('api/shorturl/new/:url', function(req, res, next) {
 
 app.get('/api/shorturl/:url', function(req, res, next) {
   console.log(req.params.url);
+  res.send(`Received ${req.params.url}`)
 })
 
 
