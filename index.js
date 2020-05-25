@@ -443,13 +443,13 @@ const urlSchema = new Schema(
   }
 );
 
-urlSchema.plugin(AutoIncrement, {inc_field: 'shortUrlId'});
+urlSchema.plugin(AutoIncrement, {inc_field: 'short_url'});
 
 const ShortURL = mongoose.model("ShortURL", urlSchema);
 
 var createAndSaveURL = function(link, done) {
   var newUrl = new ShortURL(
-    { url: link }
+    { original_url: link }
   );
 
   newUrl.save(function(err, data) {
@@ -482,6 +482,7 @@ app.post('/api/shorturl/new', function(req, res, next) {
         url: originalUrl
       });
 
+      /*
       createAndSaveURL(shortLink, function(err, data) {
         if (err) {
           return (next(err));
@@ -494,6 +495,12 @@ app.post('/api/shorturl/new', function(req, res, next) {
 
           res.json(link);
         });
+      });
+      */
+
+      res.json({
+        original_url: shortLink.url,
+        short_url: null
       });
     }
   });
