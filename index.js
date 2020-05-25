@@ -504,7 +504,7 @@ app.post('/api/shorturl/new', function(req, res, next) {
 
   let domain = stripHTTP(givenUrl);
 
-  dns.lookup(domain, (err, address, family) => { //look up URL
+  dns.lookup(domain, (err, address, family) => { //look up domain (stripped of http:// or https://)
     if (err) { //invalid URL: send error response
       console.log(err);
       res.send({
@@ -512,7 +512,6 @@ app.post('/api/shorturl/new', function(req, res, next) {
       });
     }
     else { //valid URL: save and return response
-      console.log('link: %s address: %j family: IPv%s', givenUrl, address, family);
 
       createAndSaveURL(givenUrl, function(err, data) {
         if (err) {
@@ -529,9 +528,7 @@ app.post('/api/shorturl/new', function(req, res, next) {
 })
 
 app.get('/api/shorturl/:url', function(req, res, next) {
-
   const shortLink = parseInt(req.params.url);
-  console.log(shortLink, typeof shortLink);
 
   findURLByShortLink(shortLink, function(err, data) {
     if (err) {
@@ -540,14 +537,6 @@ app.get('/api/shorturl/:url', function(req, res, next) {
 
     res.redirect(301, data.original_url);
   })
-
-/*
-  if (req.params.url === "1") {
-    res.redirect("http://www.google.com");
-  }
-
-  res.send(`Received ${req.params.url}`)
-*/
 })
 
 
