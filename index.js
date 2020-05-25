@@ -426,6 +426,10 @@ app.post('/remove-many-people', function(req, res, next) {
 
 
 /*** URL Shortener Microservice */
+app.post('api/shorturl/new/:url', function(req, res, next) {
+  console.log(req.params.url);
+})
+
 app.get('/api/shorturl/:url', function(req, res, next) {
   console.log(req.params.url);
 })
