@@ -476,7 +476,7 @@ app.post('/api/shorturl/new', function(req, res, next) {
       });
     }
     else { //valid URL: save and return response
-      console.log('address: %j family: IPv%s', address, family);
+      console.log('link: %s address: %j family: IPv%s', givenUrl, address, family);
 
       createAndSaveURL(givenUrl, function(err, data) {
         if (err) {
