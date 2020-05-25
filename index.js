@@ -5,6 +5,9 @@ const mongoose = require('mongoose');
 require('dotenv').config({ path: '.env' });
 const bodyParser = require('body-parser');
 
+express.static("/");
+app.use(express.static('public'))
+
 app.use(bodyParser.urlencoded({extended: 'false'}));
 app.use(bodyParser.json());
 app.use(expressip().getIpInfoMiddleware);
@@ -427,6 +430,8 @@ app.post('/remove-many-people', function(req, res, next) {
 
 
 /*** URL Shortener Microservice */
+
+
 app.post('/api/shorturl/new', function(req, res, next) {
 //To-do: figure out how to send POST request using Postman
 
