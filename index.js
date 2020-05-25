@@ -437,6 +437,10 @@ const urlSchema = new Schema(
     url: {
       type: String,
       required: true
+    },
+    shortLink: {
+      type: Number,
+      required: true
     }
   }
 );
