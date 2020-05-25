@@ -436,15 +436,12 @@ app.post('/remove-many-people', function(req, res, next) {
 app.post('/api/shorturl/new', function(req, res, next) {
 //To-do: figure out how to send POST request using Postman
 
-  /*
-  let originalUrl = req.params.url;
+  let originalUrl = req.body.url;
   res.send({
     "original_url": originalUrl
   });
-  */
 
   console.log(req.body);
-  res.send(`Received request to create new URL: ${req.body.url}`)
 })
 
 app.get('/api/shorturl/:url', function(req, res, next) {
