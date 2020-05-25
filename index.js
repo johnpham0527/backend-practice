@@ -504,11 +504,21 @@ app.post('/api/shorturl/new', function(req, res, next) {
 app.get('/api/shorturl/:url', function(req, res, next) {
   console.log(req.params.url);
 
+  findURLByShortLink(req.params.url, function(err, data) {
+    if (err) {
+      return next(err);
+    }
+
+    res.redirect(data.original_url);
+  })
+
+/*
   if (req.params.url === "1") {
     res.redirect("http://www.google.com");
   }
 
   res.send(`Received ${req.params.url}`)
+*/
 })
 
 
