@@ -6,6 +6,7 @@ require('dotenv').config({ path: '.env' });
 const bodyParser = require('body-parser');
 const path = require('path');
 const dns = require('dns');
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 express.static("/");
 app.use(express.static(path.join(__dirname, 'public')));
