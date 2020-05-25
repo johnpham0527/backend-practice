@@ -474,7 +474,7 @@ var findURLByShortLink = function(shortLinkId, done) {
   })
 };
 
-var findURLbyName = function(givenUrl, done) {
+var findURLByName = function(givenUrl, done) {
   ShortURL.findOne({original_url: givenUrl}, function(err, data) {
     if (err) {
       done(err);
