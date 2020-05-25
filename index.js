@@ -447,7 +447,24 @@ urlSchema.plugin(AutoIncrement, {inc_field: 'shortUrlId'});
 
 const ShortURL = mongoose.model("ShortURL", urlSchema);
 
-var createAndSaveURL;
+var createAndSaveURL = function(link, done) {
+  var newUrl = new ShortURL(
+    {
+      url: link
+    }
+  )
+
+  newUrl.save(function(err, data) {
+    if (err) {
+      done(err);
+    }
+    else {
+      done(null, data);
+    }
+  })
+};
+
+
 var findURLByShortLink;
 
 app.post('/api/shorturl/new', function(req, res, next) {
