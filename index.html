@@ -11,11 +11,19 @@
     <body>
         <div id="container">
             <header role="banner">
-                <h1>URL Shortener</h1>
+                <h1>URL Shortener Microservice</h1>
             </header>
     
             <main role="main">
-                <p>Enter your URL below.</p>
+                <form id="survey-form" action="/api/shorturl/new" method="post">
+                <section class="form-section">
+                    <p>
+                        <label id="url-label" for="url" >What is your URL to shorten?</label>
+                        <abbr title="required" aria-label="required">*</abbr> 
+                        <input name="url" id="url" placeholder="http://www.yourwebsite.com" class="form-input" required>
+                    </p>
+                </section>
+                </form>
             </main>
     
             <footer role="contentinfo">
