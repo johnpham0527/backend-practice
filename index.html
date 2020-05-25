@@ -15,14 +15,18 @@
             </header>
     
             <main role="main">
-                <form id="survey-form" action="localhost:3000/api/shorturl/new" method="post">
-                <section class="form-section">
-                    <p>
-                        <label id="url-label" for="url" >What is your URL to shorten?</label>
-                        <abbr title="required" aria-label="required">*</abbr> 
-                        <input name="url" id="url" placeholder="http://www.yourwebsite.com" class="form-input" required>
-                    </p>
-                </section>
+                <form id="survey-form" action="http://localhost:3000/api/shorturl/new" method="post">
+                    <section class="form-section">
+                        <p>
+                            <label id="url-label" for="url" >What is your URL to shorten?</label>
+                            <abbr title="required" aria-label="required">*</abbr> 
+                            <input name="url" id="url" placeholder="http://www.yourwebsite.com" class="form-input" required>
+                        </p>
+                    </section>
+
+                    <section class="form-submit">
+                        <input type="submit" id="submit" value="Submit Your Response">
+                    </section>
                 </form>
             </main>
     
