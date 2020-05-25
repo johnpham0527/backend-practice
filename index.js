@@ -436,7 +436,7 @@ app.post('/remove-many-people', function(req, res, next) {
 *******************************/
 const urlSchema = new Schema(
   {
-    url: {
+    original_url: {
       type: String,
       required: true
     },
@@ -475,19 +475,18 @@ app.post('/api/shorturl/new', function(req, res, next) {
         "error": "invalid URL"
       });
     }
-    else { //valid URL: proceed
+    else { //valid URL: save and return response
       console.log('address: %j family: IPv%s', address, family);
 
       var shortLink = new ShortURL({
-        url: originalUrl
+        original_url: originalUrl
       });
 
-      /*
       createAndSaveURL(shortLink, function(err, data) {
         if (err) {
           return (next(err));
         }
-
+/*
         ShortURL.findById(data._id, function(err, link) {
           if (err) {
             return (next(err));
@@ -495,12 +494,12 @@ app.post('/api/shorturl/new', function(req, res, next) {
 
           res.json(link);
         });
-      });
-      */
+              */
 
       res.json({
-        original_url: shortLink.url,
-        short_url: null
+          original_url: shortLink.original_url,
+          short_url: null
+        });
       });
     }
   });
