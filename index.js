@@ -439,7 +439,7 @@ const urlSchema = new Schema(
     original_url: {
       type: String,
       required: true
-    },
+    }
   }
 );
 
@@ -466,9 +466,9 @@ var createAndSaveURL = function(link, done) {
 var findURLByShortLink;
 
 app.post('/api/shorturl/new', function(req, res, next) {
-  let originalUrl = req.body.url;
+  let givenUrl = req.body.url;
 
-  dns.lookup(originalUrl, (err, address, family) => { //look up URL
+  dns.lookup(givenUrl, (err, address, family) => { //look up URL
     if (err) { //Invalid URL: send error response
       console.log(err);
       res.send({
@@ -478,13 +478,7 @@ app.post('/api/shorturl/new', function(req, res, next) {
     else { //valid URL: save and return response
       console.log('address: %j family: IPv%s', address, family);
 
-      var shortLink = new ShortURL(
-        {
-          original_url: originalUrl
-        }
-      );
-
-      createAndSaveURL(shortLink, function(err, data) {
+      createAndSaveURL(givenUrl, function(err, data) {
         if (err) {
           return (next(err));
         }
