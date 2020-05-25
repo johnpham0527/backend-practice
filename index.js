@@ -482,14 +482,18 @@ const isValidUrl = (url) => {
 }
 
 const stripHTTP = (validUrl) => {
+  let domain = validUrl;
+
   if (validUrl.startsWith("http://")) {
-    return validUrl.substring(7);
+    domain = validUrl.substring(7);
   }
   else if (validUrl.startsWith("https://")) {
-    return validUrl.substring(8);
+    domain = validUrl.substring(8);
+
   }
 
-  return validUrl;
+  console.log(`Domain: ${domain}`);
+  return domain;
 }
 
 app.post('/api/shorturl/new', function(req, res, next) {
