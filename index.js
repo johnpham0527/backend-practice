@@ -500,7 +500,7 @@ app.post('/api/shorturl/new', function(req, res, next) {
     res.send({
       "error": "invalid URL"
     });
-    return (next(err));
+    return (next({message: `${givenUrl} is not a valid URL.`}));
   }
 
   let domain = stripHTTP(givenUrl);
