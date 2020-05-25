@@ -4,9 +4,10 @@ const expressip = require('express-ip');
 const mongoose = require('mongoose');
 require('dotenv').config({ path: '.env' });
 const bodyParser = require('body-parser');
+const path = require('path');
 
 express.static("/");
-app.use(express.static('public'))
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(bodyParser.urlencoded({extended: 'false'}));
 app.use(bodyParser.json());
