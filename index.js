@@ -28,9 +28,9 @@ mongoose.connect(
     }
   ); 
 
+  const Schema = mongoose.Schema;
 
 /*** Mongoose */
-const Schema = mongoose.Schema;
 
 const personSchema = new Schema(
 {
@@ -568,6 +568,23 @@ app.get('/api/shorturl/:url', function(req, res, next) {
     res.redirect(301, data.original_url);
   })
 })
+
+
+/**** Exercise Tracker */
+app.post('/api/exercise/new-user', function (req, res, next) {
+  /*
+  1. Check to see if username already exists
+  2. If it doesn't, create it.
+  3. Return an object with a username and an _id
+  */
+
+  console.log(req.body);
+  res.json({
+    username: null,
+    _id: null
+  });
+})
+
 
 
 app.listen(3000, () => {
