@@ -571,6 +571,27 @@ app.get('/api/shorturl/:url', function(req, res, next) {
 
 
 /**** Exercise Tracker */
+const exerciseSchema = new Schema(
+  {
+    username: 
+    {
+      type: String,
+      required: true
+    },
+    description: 
+    {
+      type: String,
+      required: true
+    },
+    duration: 
+    {
+      type: Number,
+      required: true
+    },
+    date: Date
+  }
+)
+
 app.post('/api/exercise/new-user', function (req, res, next) {
   /*
   1. Check to see if username already exists
