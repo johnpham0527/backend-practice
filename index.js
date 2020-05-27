@@ -594,6 +594,10 @@ const exerciseSchema = new Schema(
 
 const Exercise = mongoose.model("exerciseSchema", Schema);
 
+const createAndSaveUser = function (username, done) {
+
+}
+
 app.post('/api/exercise/new-user', function (req, res, next) {
   /*
   1. Check to see if username already exists
