@@ -606,7 +606,24 @@ app.post('/api/exercise/new-user', function (req, res, next) {
   });
 })
 
-
+app.post('/api/exercise/add', function (req, res, next) {
+  /*
+  1. Check if userid already exists. If it doesn't, return an error
+  2. Is a date provided? If not, then use today's date
+  3. Is duration a number? If not, return an error
+  4. Add description, duration and optional date information to the user object.
+  5. Return the user object with dates added
+  */
+ 
+  console.log(req.body);
+  res.json({
+    _id: null,
+    username: null,
+    description: null,
+    duration: null,
+    date: null
+  })
+})
 
 app.listen(3000, () => {
     console.log("Mongoose Project is ready.");
