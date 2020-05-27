@@ -571,13 +571,10 @@ app.get('/api/shorturl/:url', function(req, res, next) {
 
 
 /**** Exercise Tracker */
+
+
 const exerciseSchema = new Schema(
   {
-    username: 
-    {
-      type: String,
-      required: true
-    },
     description: 
     {
       type: String,
@@ -592,11 +589,27 @@ const exerciseSchema = new Schema(
   }
 )
 
+/*
+const userSchema = new Schema(
+  {
+    username: 
+    {
+      type: String,
+      required: true
+    },
+    log: [exerciseSchema]
+  }
+)
+*/
+
 const Exercise = mongoose.model("exerciseSchema", Schema);
+//const User = mongoose.model("userSchema", Schema);
 
 const createAndSaveUser = function (username, done) {
 
 }
+
+
 
 app.post('/api/exercise/new-user', function (req, res, next) {
   /*
