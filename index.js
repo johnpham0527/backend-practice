@@ -629,6 +629,11 @@ app.get('/api/exercise/users', function (req, res, next) {
   res.send("Requesting an array of all users...")
 })
 
+app.get('/api/exercise/log', function (req, res, next) {
+  console.log(req.query);
+  res.send(`Requesting a full exercise log of user with userId ${req.query.userId}...`)
+})
+
 app.listen(3000, () => {
     console.log("Mongoose Project is ready.");
 });
