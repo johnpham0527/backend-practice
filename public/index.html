@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Exercise Tracker</title>
+        <meta charset="UTF-8">
+        <meta name="description" content="An Exercise Tracker Project">
+        <meta name="keywords" content="Node, Express, Mongoose, Exercise Tracker">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
+    </head>
+    <body>
+        <div id="container">
+            <header role="banner">
+                <h1>Exercise Tracker</h1>
+            </header>
+    
+            <main role="main">
+                <article>
+                    <form id="create-new-user" action="/api/exercise/new-user" method="post">
+                        <p>
+                            <label id="new-user-label" for="new-user">POST /api/exercise/new-user</label>
+                            <abbr title="required" aria-label="required">*</abbr>
+                            <input name="new-user" id="new-user" placeholder="username" class="form-input" required>
+                        </p>
+
+                    </form>
+                </article>
+
+            </main>
+    
+            <footer role="contentinfo">
+                <small>&copy; Copyright 2020, John D. Pham</small>
+            </footer>
+        </div>
+    </body>
+</html>
