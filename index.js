@@ -614,7 +614,7 @@ app.post('/api/exercise/add', function (req, res, next) {
   4. Add description, duration and optional date information to the user object.
   5. Return the user object with dates added
   */
- 
+
   console.log(req.body);
   res.json({
     _id: null,
@@ -623,6 +623,10 @@ app.post('/api/exercise/add', function (req, res, next) {
     duration: null,
     date: null
   })
+})
+
+app.get('/api/exercise/users', function (req, res, next) {
+  res.send("Requesting an array of all users...")
 })
 
 app.listen(3000, () => {
