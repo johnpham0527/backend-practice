@@ -129,7 +129,7 @@ const addNewExercise = function(req, res, next) {
     */
 
     let date;
-    if (req.body.date != 'undefined') {
+    if (typeof req.body.date != 'undefined') {
         date = req.body.date;
     }
     else {
@@ -137,8 +137,7 @@ const addNewExercise = function(req, res, next) {
         date = today.getFullYear() + '/' + (today.getMonth()+1) + '/' + today.getDate();
     }
 
-    console.log(req.body);
-    console.log(date);
+    console.log(req.body.date);
     res.json({
         _id: null,
         username: null,
