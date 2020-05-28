@@ -57,6 +57,9 @@ const createAndSaveUser = function (username, done) {
 }
 
 const addExercise = function (userId, desc, dur, date_, done) {
+
+    console.log(`Adding exercise: ${userId} ${desc} ${dur} ${date_}`)
+
     const user = findOneUser(userId, function(err, userFound) {
         if (err) {
             done(err);
@@ -128,20 +131,20 @@ const addNewExercise = function(req, res, next) {
     5. Return the user object with fields added
     */
 
+   console.log(`Request body: ${req.body.userId} ${req.body.description} ${req.body.duration} ${req.body.date}`);
+
     let date;
     if (req.body.date.length > 0) {
         date = req.body.date;
-        console.log(`Using given date: ${date}`);
     }
     else {
         let today = new Date();
         date = today.getFullYear() + '/' + (today.getMonth()+1) + '/' + today.getDate();
-        console.log(`Using today's date: ${date}`);
     }
 
-    console.log(`Request body: ${req.body.userId} ${req.body.description} ${req.body.duration} ${date}`);
+    console.log(`The date is ${date}`);
 
-    const exercise = addExercise(req.body.userId, req.body.description, req.body.duration, req.date, function (err, data) {
+    const exercise = addExercise(req.body.userId, req.body.description, parseInt(req.body.duration), date, function (err, data) {
         if (err) {
             return next(err);
         }
