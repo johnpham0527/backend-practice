@@ -17,14 +17,8 @@ const Schema = mongoose.Schema;
 /*** Exercise Tracker Model */
 const exerciseSchema = new Schema(
     {
-        description: 
-        {
-            type: String,
-        },
-        duration: 
-        {
-            type: Number,
-        },
+        description: String,
+        duration: Number,
         date: Date
     }
 )
@@ -57,9 +51,6 @@ const createAndSaveUser = function (username, done) {
 }
 
 const addExercise = function (userId, desc, dur, date_, done) {
-
-    console.log(`Adding exercise: ${userId} ${desc} ${dur} ${date_}`)
-
     const user = findOneUser(userId, function(err, userFound) {
         if (err) {
             done(err);
@@ -67,7 +58,7 @@ const addExercise = function (userId, desc, dur, date_, done) {
         else { //found a user. Now, add a new exercise to the user's log
             userFound.log.push({
                 description: desc,
-                dur: dur,
+                duration: dur,
                 date: date_
             })
             userFound.save(function(err, data) {
@@ -106,7 +97,6 @@ const findOneUser = function (userId, done) {
 
 /*** Exercise Tracker Controller */
 const addNewUser = function(req, res, next) {
-    console.log(req.body.newUser);
 
     const newUser = createAndSaveUser(req.body.newUser, function(err, data) {
         if (err) {
@@ -142,15 +132,11 @@ const addNewExercise = function(req, res, next) {
         date = today.getFullYear() + '/' + (today.getMonth()+1) + '/' + today.getDate();
     }
 
-    console.log(`The date is ${date}`);
-
-    const exercise = addExercise(req.body.userId, req.body.description, parseInt(req.body.duration), date, function (err, data) {
+    const exercise = addExercise(req.body.userId, req.body.description, req.body.duration, date, function (err, data) {
         if (err) {
             return next(err);
         }
         else {
-
-            console.log(`Exercise object: ${data}`)
             res.json(data);
         }
     });
