@@ -67,6 +67,17 @@ const findAllUsers = function (done) {
     });
 }
 
+const findOneUser = function (userID, done) {
+    const user = User.findOne({_id: userID}, function(err, data) {
+        if (err) {
+            done(err);
+        }
+        else {
+            done(null, data);
+        }
+    });
+}
+
 /*** Exercise Tracker Controller */
 const addNewUser = function(req, res, next) {
     console.log(req.body.newUser);
