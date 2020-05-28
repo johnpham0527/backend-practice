@@ -67,8 +67,8 @@ const findAllUsers = function (done) {
     });
 }
 
-const findOneUser = function (userID, done) {
-    const user = User.findOne({_id: userID}, function(err, data) {
+const findOneUser = function (userId, done) {
+    const user = User.findOne({_id: userId}, function(err, data) {
         if (err) {
             done(err);
         }
@@ -130,8 +130,14 @@ const getAllUsers = function (req, res, next) {
 };
 
 const getExerciseLog = function (req, res, next) {
-    console.log(req.query);
-    res.send(`Requesting a full exercise log of user with userId ${req.query.userId}...`)
+    //need to parse req.query to see if it contains userId, from, to, and limit. userId is required.
+
+    const userLog = findOneUser(req.query.userId, function (err, data) {
+        if (err) {
+            return next(err);
+        }
+        res.json(data);
+    });
 };
 
 /*** Exercise Tracker Router */
