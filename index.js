@@ -9,7 +9,7 @@ const dns = require('dns');
 const AutoIncrement = require('mongoose-sequence')(mongoose);
 const terminalLink = require('terminal-link');
  
-const link = terminalLink('localhost', 'http://localhost:3000');
+const link = terminalLink('http://localhost:3000', 'http://localhost:3000');
 
 var exerciseTracker = require('./exercise');
 
