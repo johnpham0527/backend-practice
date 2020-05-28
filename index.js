@@ -602,7 +602,7 @@ const userSchema = new Schema(
 )
 */
 
-const Exercise = mongoose.model("exerciseSchema", Schema);
+const Exercise = mongoose.model("Exercise", exerciseSchema);
 //const User = mongoose.model("userSchema", Schema);
 
 const createAndSaveUser = function (username, done) {
