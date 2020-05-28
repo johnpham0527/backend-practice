@@ -54,7 +54,7 @@ const createAndSaveUser = function (username, done) {
 
 
 /*** Exercise Tracker Controller */
-const addNewExerciseUser = function(req, res, next) {
+const addNewUser = function(req, res, next) {
     /*
     1. Check to see if username already exists
     2. If it doesn't, create it.
@@ -68,29 +68,29 @@ const addNewExerciseUser = function(req, res, next) {
     });
 }
 
+const addNewExercise = function(req, res, next) {
+    /*
+    1. Check if userid already exists. If it doesn't, return an error
+    2. Is a date provided? If not, then use today's date
+    3. Is duration a number? If not, return an error
+    4. Add description, duration and optional date information to the user object.
+    5. Return the user object with dates added
+    */
+
+    console.log(req.body);
+    res.json({
+        _id: null,
+        username: null,
+        description: null,
+        duration: null,
+        date: null
+    })
+}
 
 
 /*** Exercise Tracker Router */
-router.post('/new-user', addNewExerciseUser);
-
-router.post('/add', function (req, res, next) {
-/*
-1. Check if userid already exists. If it doesn't, return an error
-2. Is a date provided? If not, then use today's date
-3. Is duration a number? If not, return an error
-4. Add description, duration and optional date information to the user object.
-5. Return the user object with dates added
-*/
-
-console.log(req.body);
-res.json({
-    _id: null,
-    username: null,
-    description: null,
-    duration: null,
-    date: null
-})
-})
+router.post('/new-user', addNewUser);
+router.post('/add', addNewExercise);
 
 router.get('/users', function (req, res, next) {
 res.send("Requesting an array of all users...")
