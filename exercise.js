@@ -84,7 +84,8 @@ const findAllUsers = function (done) {
     });
 }
 
-const findOneUser = function (userId, logLimit = 0, done) {
+const findOneUser = function (userId, done) {
+    /*
     let user;
 
     if (logLimit === 0) { //a log limit wasn't defined, so return all exercise logs
@@ -108,6 +109,16 @@ const findOneUser = function (userId, logLimit = 0, done) {
             }
         });
     }
+*/
+
+    let user = User.findOne({_id: userId}, function(err, data) {
+        if (err) {
+            done(err);
+        }
+        else {
+            done(null, data);
+        }
+    });
 }
 
 /*** Exercise Tracker Controller */
@@ -170,23 +181,28 @@ const getAllUsers = function (req, res, next) {
 const getExerciseLog = function (req, res, next) {
     //need to parse req.query to see if it contains userId, from, to, and limit. userId is required.
 
+    /*
     let logLimit = typeof req.query.limit === undefined ? //was a limit to the number of returned exercise logs specified?
         0 : //it's undefined, so set to 0
         parseInt(req.query.limit); //it's defined, so use that number
+    */
 
 
-    const userLog = findOneUser(req.query.userId, logLimit, function (err, data) {
+    const userLog = findOneUser(req.query.userId, function (err, data) {
         if (err) {
             return next(err);
         }
-        data[0]._doc.count = data[0].log.length; //add the length of the log array to count property
-        console.log(data);
-        console.log(data[0]);
+        data._doc.count = data.log.length; //add the length of the log array to count property
+
+        let returnLog = typeof req.query.limit !== undefined ? //was the limit query parameter specified?
+            data.log.slice(0, parseInt(req.query.limit)) : //it was, so slice the data.log array
+            data.log; //it was not specified, so use the entire data.log array
+
         res.json(
             {
-                _id: data[0]._id,
-                log: data[0].log,
-                count: data[0]._doc.count
+                _id: data._id,
+                log: returnLog,
+                count: data._doc.count
             }
         );
     });
