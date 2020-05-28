@@ -137,17 +137,22 @@ const addNewExercise = function(req, res, next) {
         date = today.getFullYear() + '/' + (today.getMonth()+1) + '/' + today.getDate();
     }
 
-    //const exercise = addExercise(req.body.add, req.body.description, req.body.duration, )
+    console.log(`Request body: ${req.body}`);
+
+    const exercise = addExercise(req.body.userId, req.body.description, req.body.duration, req.date, function (err, data) {
+        if (err) {
+            return next(err);
+        }
+        else {
+
+            console.log(`Exercise object: ${exercise}`)
+            res.send(exercise);
+            //res.json(exercise);
+        }
+    });
 
 
-    console.log(req.body.date);
-    res.json({
-        _id: null,
-        username: null,
-        description: null,
-        duration: null,
-        date: null
-    })
+
 };
 
 const getAllUsers = function (req, res, next) {
