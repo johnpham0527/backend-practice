@@ -102,5 +102,5 @@ router.post('/add', addNewExercise);
 router.get('/users', getAllUsers);
 router.get('/log', getExerciseLog);
 
-
+/*** Exercise Tracker Module Export */
 module.exports = router;
