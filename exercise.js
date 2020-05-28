@@ -129,15 +129,17 @@ const addNewExercise = function(req, res, next) {
     */
 
     let date;
-    if (typeof req.body.date != 'undefined') {
+    if (req.body.date.length > 0) {
         date = req.body.date;
+        console.log(`Using given date: ${date}`);
     }
     else {
         let today = new Date();
         date = today.getFullYear() + '/' + (today.getMonth()+1) + '/' + today.getDate();
+        console.log(`Using today's date: ${date}`);
     }
 
-    console.log(`Request body: ${req.body}`);
+    console.log(`Request body: ${req.body.userId} ${req.body.description} ${req.body.duration} ${date}`);
 
     const exercise = addExercise(req.body.userId, req.body.description, req.body.duration, req.date, function (err, data) {
         if (err) {
@@ -145,9 +147,8 @@ const addNewExercise = function(req, res, next) {
         }
         else {
 
-            console.log(`Exercise object: ${exercise}`)
-            res.send(exercise);
-            //res.json(exercise);
+            console.log(`Exercise object: ${data}`)
+            res.json(data);
         }
     });
 
