@@ -170,9 +170,9 @@ const getExerciseLog = function (req, res, next) {
         }
         data._doc.count = data.log.length; //add the length of the log array to count property
 
-        let returnLog = typeof req.query.limit !== undefined ? //was the limit query parameter specified?
-            data.log.slice(0, parseInt(req.query.limit)) : //it was, so slice the data.log array
-            data.log; //it was not specified, so use the entire data.log array
+        let returnLog = typeof req.query.limit === undefined ? //was the limit query parameter specified?
+            data.log : //it was not specified, so use the entire data.log array
+            data.log.slice(0, req.query.limit); //it was specified, so use the given limit number
 
         res.json(
             {
