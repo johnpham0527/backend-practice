@@ -14,8 +14,7 @@ mongoose.connect(
 
 const Schema = mongoose.Schema;
 
-/*** Exercise Tracker Router */
-
+/*** Exercise Tracker Model */
 const exerciseSchema = new Schema(
 {
     description: 
@@ -52,20 +51,26 @@ const createAndSaveUser = function (username, done) {
 
 }
 
-const addNewExerciseUser = function(req, res, next) {
-/*
-1. Check to see if username already exists
-2. If it doesn't, create it.
-3. Return an object with a username and an _id
-*/
 
-console.log(req.body);
-res.json({
-    username: null,
-    _id: null
-});
+
+/*** Exercise Tracker Controller */
+const addNewExerciseUser = function(req, res, next) {
+    /*
+    1. Check to see if username already exists
+    2. If it doesn't, create it.
+    3. Return an object with a username and an _id
+    */
+
+    console.log(req.body);
+    res.json({
+        username: null,
+        _id: null
+    });
 }
 
+
+
+/*** Exercise Tracker Router */
 router.post('/new-user', addNewExerciseUser);
 
 router.post('/add', function (req, res, next) {
@@ -95,5 +100,6 @@ router.get('/log', function (req, res, next) {
 console.log(req.query);
 res.send(`Requesting a full exercise log of user with userId ${req.query.userId}...`)
 })
+
 
 module.exports = router;
