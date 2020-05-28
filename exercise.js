@@ -128,7 +128,17 @@ const addNewExercise = function(req, res, next) {
     5. Return the user object with fields added
     */
 
+    let date;
+    if (req.body.date != 'undefined') {
+        date = req.body.date;
+    }
+    else {
+        let today = new Date();
+        date = today.getFullYear() + '/' + (today.getMonth()+1) + '/' + today.getDate();
+    }
+
     console.log(req.body);
+    console.log(date);
     res.json({
         _id: null,
         username: null,
