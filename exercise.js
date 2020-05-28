@@ -41,7 +41,7 @@ const userSchema = new Schema(
 )
 
 const Exercise = mongoose.model("Exercise", exerciseSchema);
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("ExerciseUser", userSchema);
 
 const createAndSaveUser = function (username, done) {
     const user = new User({username: username});
@@ -60,20 +60,20 @@ const createAndSaveUser = function (username, done) {
 
 /*** Exercise Tracker Controller */
 const addNewUser = function(req, res, next) {
-    /*
-    1. Check to see if username already exists
-    2. If it doesn't, create it.
-    3. Return an object with a username and an _id
-    */
-
     console.log(req.body.newUser);
 
+    const newUser = createAndSaveUser(req.body.newUser, function(err, data) {
+        if (err) {
+            return next(err);
+        }
+
+        res.json({
+            username: data.username,
+            _id: data._id
+        });
+    })
 
 
-    res.json({
-        username: null,
-        _id: null
-    });
 };
 
 const addNewExercise = function(req, res, next) {
