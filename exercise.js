@@ -1,9 +1,20 @@
 var express = require('express');
 var router = express.Router();
+const mongoose = require('mongoose');
+require('dotenv').config({ path: '.env' });
+
+mongoose.connect(
+    process.env.MONGO_URI,
+    { 
+      useNewUrlParser: true, 
+      useUnifiedTopology: true,
+      useCreateIndex: true
+    }
+  ); 
+
+const Schema = mongoose.Schema;
 
 /*** Exercise Tracker Router */
-
-/**** Exercise Tracker */
 
 const exerciseSchema = new Schema(
 {
@@ -55,9 +66,9 @@ res.json({
 });
 }
 
-router.post('/api/exercise/new-user', addNewExerciseUser);
+router.post('/new-user', addNewExerciseUser);
 
-router.post('/api/exercise/add', function (req, res, next) {
+router.post('/add', function (req, res, next) {
 /*
 1. Check if userid already exists. If it doesn't, return an error
 2. Is a date provided? If not, then use today's date
@@ -76,11 +87,11 @@ res.json({
 })
 })
 
-router.get('/api/exercise/users', function (req, res, next) {
+router.get('/users', function (req, res, next) {
 res.send("Requesting an array of all users...")
 })
 
-router.get('/api/exercise/log', function (req, res, next) {
+router.get('/log', function (req, res, next) {
 console.log(req.query);
 res.send(`Requesting a full exercise log of user with userId ${req.query.userId}...`)
 })
