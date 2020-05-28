@@ -66,7 +66,10 @@ const addNewUser = function(req, res, next) {
     3. Return an object with a username and an _id
     */
 
-    console.log(req.body);
+    console.log(req.body.newUser);
+
+
+
     res.json({
         username: null,
         _id: null
