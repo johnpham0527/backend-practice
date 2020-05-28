@@ -85,6 +85,10 @@ const findAllUsers = function (done) {
 }
 
 const findOneUser = function (userId, done) {
+/* I need to update this function to use querying by date ranges
+https://mongoosejs.com/docs/tutorials/dates.html
+*/
+
     let user = User.findOne({_id: userId}, function(err, data) {
         if (err) {
             done(err);
