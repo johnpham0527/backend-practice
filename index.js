@@ -609,9 +609,7 @@ const createAndSaveUser = function (username, done) {
 
 }
 
-
-
-app.post('/api/exercise/new-user', function (req, res, next) {
+const addNewExerciseUser = function(req, res, next) {
   /*
   1. Check to see if username already exists
   2. If it doesn't, create it.
@@ -623,7 +621,9 @@ app.post('/api/exercise/new-user', function (req, res, next) {
     username: null,
     _id: null
   });
-})
+}
+
+app.post('/api/exercise/new-user', addNewExerciseUser);
 
 app.post('/api/exercise/add', function (req, res, next) {
   /*
