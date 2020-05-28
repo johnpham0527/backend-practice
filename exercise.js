@@ -85,32 +85,6 @@ const findAllUsers = function (done) {
 }
 
 const findOneUser = function (userId, done) {
-    /*
-    let user;
-
-    if (logLimit === 0) { //a log limit wasn't defined, so return all exercise logs
-        user = User.findOne({_id: userId}, function(err, data) {
-            if (err) {
-                done(err);
-            }
-            else {
-                done(null, data);
-            }
-        });
-    }
-
-    else { //a log limit was defined, so limit the number of array items to be returned
-        user = User.find({_id: userId}, {log: {$slice: logLimit}}, function(err, data) {
-            if (err) {
-                done(err);
-            }
-            else {
-                done(null, data);
-            }
-        });
-    }
-*/
-
     let user = User.findOne({_id: userId}, function(err, data) {
         if (err) {
             done(err);
@@ -179,14 +153,7 @@ const getAllUsers = function (req, res, next) {
 };
 
 const getExerciseLog = function (req, res, next) {
-    //need to parse req.query to see if it contains userId, from, to, and limit. userId is required.
-
-    /*
-    let logLimit = typeof req.query.limit === undefined ? //was a limit to the number of returned exercise logs specified?
-        0 : //it's undefined, so set to 0
-        parseInt(req.query.limit); //it's defined, so use that number
-    */
-
+    /* Need to implement from and to query parameters*/
 
     const userLog = findOneUser(req.query.userId, function (err, data) {
         if (err) {
