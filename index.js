@@ -8,12 +8,16 @@ const path = require('path');
 const dns = require('dns');
 const AutoIncrement = require('mongoose-sequence')(mongoose);
 
+var exerciseTracker = require('./exercise');
+
 express.static("/");
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(bodyParser.urlencoded({extended: 'false'}));
 app.use(bodyParser.json());
 app.use(expressip().getIpInfoMiddleware);
+
+app.use('/api/exercise', exerciseTracker)
 
 // global setting for safety timeouts to handle possible
 // wrong callbacks that will never be called
