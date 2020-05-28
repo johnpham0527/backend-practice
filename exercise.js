@@ -170,16 +170,22 @@ const getAllUsers = function (req, res, next) {
 const getExerciseLog = function (req, res, next) {
     //need to parse req.query to see if it contains userId, from, to, and limit. userId is required.
 
-    const userLog = findOneUser(req.query.userId, function (err, data) {
+    let logLimit = typeof req.query.limit === undefined ? //was a limit to the number of returned exercise logs specified?
+        0 : //it's undefined, so set to 0
+        parseInt(req.query.limit); //it's defined, so use that number
+
+
+    const userLog = findOneUser(req.query.userId, logLimit, function (err, data) {
         if (err) {
             return next(err);
         }
-        data._doc.count = data.log.length; //add the length of the log array to count property
+        //data._doc.count = data.log.length; //add the length of the log array to count property
+        console.log(data);
         res.json(
             {
-                _id: data.id,
+                _id: data._id,
                 log: data.log,
-                count: data._doc.count
+                //count: data._doc.count
             }
         );
     });
