@@ -137,6 +137,9 @@ const addNewExercise = function(req, res, next) {
         date = today.getFullYear() + '/' + (today.getMonth()+1) + '/' + today.getDate();
     }
 
+    //const exercise = addExercise(req.body.add, req.body.description, req.body.duration, )
+
+
     console.log(req.body.date);
     res.json({
         _id: null,
