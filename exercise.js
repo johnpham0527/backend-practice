@@ -56,14 +56,25 @@ const createAndSaveUser = function (username, done) {
     });
 }
 
-const addExercise = function (userId, description, duration, date, done) {
-    const user = findOneUser(userId, function(err, data) {
+const addExercise = function (userId, desc, dur, date_, done) {
+    const user = findOneUser(userId, function(err, userFound) {
         if (err) {
             done(err);
         }
         else { //found a user. Now, add a new exercise to the user's log
-            
-
+            userFound.log.push({
+                description: desc,
+                dur: dur,
+                date: date_
+            })
+            userFound.save(function(err, data) {
+                if (err) {
+                    done(err);
+                }
+                else {
+                    done(null,data);
+                }
+            })
         }
     });
 };
