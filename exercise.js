@@ -16,36 +16,34 @@ const Schema = mongoose.Schema;
 
 /*** Exercise Tracker Model */
 const exerciseSchema = new Schema(
-{
-    description: 
     {
-    type: String,
-    required: true
-    },
-    duration: 
-    {
-    type: Number,
-    required: true
-    },
-    date: Date
-}
+        description: 
+        {
+            type: String,
+            required: true
+        },
+        duration: 
+        {
+            type: Number,
+            required: true
+        },
+        date: Date
+    }
 )
 
-/*
 const userSchema = new Schema(
-{
-    username: 
     {
-    type: String,
-    required: true
-    },
-    log: [exerciseSchema]
-}
+        username: 
+        {
+            type: String,
+            required: true
+        },
+        log: [exerciseSchema]
+    }
 )
-*/
 
 const Exercise = mongoose.model("Exercise", exerciseSchema);
-//const User = mongoose.model("userSchema", Schema);
+const User = mongoose.model("User", userSchema);
 
 const createAndSaveUser = function (username, done) {
 
