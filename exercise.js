@@ -105,7 +105,17 @@ const addNewExercise = function(req, res, next) {
 };
 
 const getAllUsers = function (req, res, next) {
-    res.send("Requesting an array of all users...")
+    const allUsers = findAllUsers(function(err, data) {
+        if (err) {
+            return next(err);
+        }
+        res.json(data.map(element => { //return only the ID and username
+            return ({
+                _id: element._id,
+                username: element.username
+            });
+        }));
+    });
 };
 
 const getExerciseLog = function (req, res, next) {
