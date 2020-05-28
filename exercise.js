@@ -84,7 +84,7 @@ const findAllUsers = function (done) {
     });
 }
 
-const findOneUser = function (userId, done) {
+const findOneUser = function (userId, from, to, done) {
 /* I need to update this function to use querying by date ranges
 https://mongoosejs.com/docs/tutorials/dates.html
 */
@@ -116,7 +116,7 @@ const addNewUser = function(req, res, next) {
 
 const addNewExercise = function(req, res, next) {
     
-    //Check to see if date exists and handle appropriately
+    //Check to see if a date was inputted
     let date;
     if (req.body.date.length > 0) {
         date = req.body.date;
@@ -159,7 +159,12 @@ const getAllUsers = function (req, res, next) {
 const getExerciseLog = function (req, res, next) {
     /* Need to implement from and to query parameters*/
 
-    const userLog = findOneUser(req.query.userId, function (err, data) {
+    let from = req.query.from || 0; //set from variable equal to req.query.from if it exists or otherwise assign it to 0
+    let to = req.query.to || 0; //set to variable equal to req.query.to if it exists or otherwise assign it to 0
+
+    console.log(`from: ${from}, to: ${to}`);
+
+    const userLog = findOneUser(req.query.userId, from, to, function (err, data) {
         if (err) {
             return next(err);
         }
