@@ -66,7 +66,7 @@ const addNewUser = function(req, res, next) {
         username: null,
         _id: null
     });
-}
+};
 
 const addNewExercise = function(req, res, next) {
     /*
@@ -85,22 +85,22 @@ const addNewExercise = function(req, res, next) {
         duration: null,
         date: null
     })
-}
+};
 
 const getAllUsers = function (req, res, next) {
     res.send("Requesting an array of all users...")
-}
+};
 
+const getExerciseLog = function (req, res, next) {
+    console.log(req.query);
+    res.send(`Requesting a full exercise log of user with userId ${req.query.userId}...`)
+};
 
 /*** Exercise Tracker Router */
 router.post('/new-user', addNewUser);
 router.post('/add', addNewExercise);
 router.get('/users', getAllUsers);
-
-router.get('/log', function (req, res, next) {
-console.log(req.query);
-res.send(`Requesting a full exercise log of user with userId ${req.query.userId}...`)
-})
+router.get('/log', getExerciseLog);
 
 
 module.exports = router;
