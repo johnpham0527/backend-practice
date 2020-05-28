@@ -56,6 +56,18 @@ const createAndSaveUser = function (username, done) {
     });
 }
 
+const addExercise = function (userId, description, duration, date, done) {
+    const user = findOneUser(userId, function(err, data) {
+        if (err) {
+            done(err);
+        }
+        else { //found a user. Now, add a new exercise to the user's log
+            
+
+        }
+    });
+};
+
 const findAllUsers = function (done) {
     const allUsers = User.find({}, function (err, data) {
         if (err) {
@@ -102,7 +114,7 @@ const addNewExercise = function(req, res, next) {
     2. Is a date provided? If not, then use today's date
     3. Is duration a number? If not, return an error
     4. Add description, duration and optional date information to the user object.
-    5. Return the user object with dates added
+    5. Return the user object with fields added
     */
 
     console.log(req.body);
