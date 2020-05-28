@@ -7,6 +7,9 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const dns = require('dns');
 const AutoIncrement = require('mongoose-sequence')(mongoose);
+const terminalLink = require('terminal-link');
+ 
+const link = terminalLink('http://localhost:3000', 'http://localhost:3000');
 
 var exerciseTracker = require('./exercise');
 
@@ -576,7 +579,7 @@ app.get('/api/shorturl/:url', function(req, res, next) {
 
 
 app.listen(3000, () => {
-    console.log("Server is running on localhost:3000");
+    console.log(`Server is running on ${link}`);
 });
 
 /** Who Am I API */
