@@ -84,15 +84,30 @@ const findAllUsers = function (done) {
     });
 }
 
-const findOneUser = function (userId, done) {
-    const user = User.findOne({_id: userId}, function(err, data) {
-        if (err) {
-            done(err);
-        }
-        else {
-            done(null, data);
-        }
-    });
+const findOneUser = function (userId, logLimit = 0, done) {
+    let user;
+
+    if (logLimit === 0) { //a log limit wasn't defined, so return all exercise logs
+        user = User.findOne({_id: userId}, function(err, data) {
+            if (err) {
+                done(err);
+            }
+            else {
+                done(null, data);
+            }
+        });
+    }
+
+    else { //a log limit was defined, so limit the number of array items to be returned
+        user = User.find({_id: userId}, {log: {$slice: logLimit}}, function(err, data) {
+            if (err) {
+                done(err);
+            }
+            else {
+                done(null, data);
+            }
+        });
+    }
 }
 
 /*** Exercise Tracker Controller */
