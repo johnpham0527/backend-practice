@@ -56,7 +56,16 @@ const createAndSaveUser = function (username, done) {
     });
 }
 
-
+const findAllUsers = function (done) {
+    const allUsers = User.find({}, function (err, data) {
+        if (err) {
+            done(err);
+        }
+        else {
+            done(null, data);
+        }
+    });
+}
 
 /*** Exercise Tracker Controller */
 const addNewUser = function(req, res, next) {
