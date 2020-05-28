@@ -179,13 +179,14 @@ const getExerciseLog = function (req, res, next) {
         if (err) {
             return next(err);
         }
-        //data._doc.count = data.log.length; //add the length of the log array to count property
+        data[0]._doc.count = data[0].log.length; //add the length of the log array to count property
         console.log(data);
+        console.log(data[0]);
         res.json(
             {
-                _id: data._id,
-                log: data.log,
-                //count: data._doc.count
+                _id: data[0]._id,
+                log: data[0].log,
+                count: data[0]._doc.count
             }
         );
     });
