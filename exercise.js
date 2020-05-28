@@ -44,7 +44,16 @@ const Exercise = mongoose.model("Exercise", exerciseSchema);
 const User = mongoose.model("User", userSchema);
 
 const createAndSaveUser = function (username, done) {
+    const user = new User({username: username});
 
+    user.save(function (err, data) {
+        if (err) {
+            done(err);
+        }
+        else {
+            done(null, data);
+        }
+    });
 }
 
 
