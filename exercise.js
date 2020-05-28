@@ -136,7 +136,14 @@ const getExerciseLog = function (req, res, next) {
         if (err) {
             return next(err);
         }
-        res.json(data);
+        data._doc.count = data.log.length; //add the length of the log array to count property
+        res.json(
+            {
+                _id: data.id,
+                log: data.log,
+                count: data._doc.count
+            }
+        );
     });
 };
 
