@@ -87,14 +87,15 @@ const addNewExercise = function(req, res, next) {
     })
 }
 
+const getAllUsers = function (req, res, next) {
+    res.send("Requesting an array of all users...")
+}
+
 
 /*** Exercise Tracker Router */
 router.post('/new-user', addNewUser);
 router.post('/add', addNewExercise);
-
-router.get('/users', function (req, res, next) {
-res.send("Requesting an array of all users...")
-})
+router.get('/users', getAllUsers);
 
 router.get('/log', function (req, res, next) {
 console.log(req.query);
