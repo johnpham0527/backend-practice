@@ -576,7 +576,7 @@ app.get('/api/shorturl/:url', function(req, res, next) {
 
 
 app.listen(3000, () => {
-    console.log("Mongoose Project is ready.");
+    console.log("Server is running on localhost:3000");
 });
 
 /** Who Am I API */
