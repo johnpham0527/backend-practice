@@ -108,21 +108,11 @@ const addNewUser = function(req, res, next) {
             _id: data._id
         });
     })
-
-
 };
 
 const addNewExercise = function(req, res, next) {
-    /*
-    1. Check if userid already exists. If it doesn't, return an error
-    2. Is a date provided? If not, then use today's date
-    3. Is duration a number? If not, return an error
-    4. Add description, duration and optional date information to the user object.
-    5. Return the user object with fields added
-    */
-
-   console.log(`Request body: ${req.body.userId} ${req.body.description} ${req.body.duration} ${req.body.date}`);
-
+    
+    //Check to see if date exists and handle appropriately
     let date;
     if (req.body.date.length > 0) {
         date = req.body.date;
@@ -137,12 +127,15 @@ const addNewExercise = function(req, res, next) {
             return next(err);
         }
         else {
-            res.json(data);
+            res.json(
+                {
+                    _id: data._id,
+                    username: data.username,
+                    log: data.log
+                }
+            );
         }
     });
-
-
-
 };
 
 const getAllUsers = function (req, res, next) {
