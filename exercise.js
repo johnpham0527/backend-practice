@@ -97,6 +97,7 @@ const findOneUser = function(userId, done) {
 
 const findOneUserLog = function (userId, from, to, limit, done) {
 //Need to check values for from, to, and limit. If they are zero, then don't use them
+//$if? $where? Not sure if I can use conditionals...
 
     User.aggregate([
             {
@@ -106,8 +107,6 @@ const findOneUserLog = function (userId, from, to, limit, done) {
                 $unwind: '$log'
             },
             {
-                //$match: {'log.description': 'Walking'}
-                //$match: {'log.duration': 10}
                 $match: {'log.date': { 
                     $gte: new Date(from + 'T04:00:00.000+00:00'),
                     $lte: new Date(to + 'T04:00:00.000+00:00')
@@ -115,8 +114,7 @@ const findOneUserLog = function (userId, from, to, limit, done) {
             },
             {
                 $limit: parseInt(limit)
-            }
-
+            },
         ],
         function (err, data) {
             if (err) {
