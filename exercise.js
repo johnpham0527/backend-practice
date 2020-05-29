@@ -133,6 +133,9 @@ https://mongoosejs.com/docs/tutorials/dates.html
     }
 });*/
 
+
+
+/*
 let user = User.find(   {_id: userId},
                         //{log: { $elemMatch: {description: "Running"} } },
                         {log: { $elemMatch: {date: {$gte: '2020-05-01'}} } },
@@ -144,6 +147,25 @@ let user = User.find(   {_id: userId},
         done(null, data);
     }
 });
+*/
+
+    const filter = { date: { $gte: '2020-04-01' } };
+
+    let user = User.aggregate([
+        {
+            $match: { _id: userId}
+        }],
+
+        //{ $match: { log: {description: "Running"}} }
+        function (err, data) {
+            if (err) {
+                done(err);
+            }
+            else {
+                console.log(data);
+                done(null, data);
+            } 
+    });
 
 }
 
