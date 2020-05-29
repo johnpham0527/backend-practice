@@ -128,6 +128,7 @@ const addNewExercise = function(req, res, next) {
         else {
             res.json(
                 {
+                    userId: data._id,
                     username: data.username,
                     description: req.body.description,
                     duration: parseInt(req.body.duration),
