@@ -84,12 +84,12 @@ const findAllUsers = function (done) {
     });
 }
 
-const findOneUser = function (userId, from, to, done) {
+const findOneUser = function (userId, done) {
 /* I need to update this function to use querying by date ranges
 https://mongoosejs.com/docs/tutorials/dates.html
 */
 
-/*
+
     let user = User.findOne({_id: userId}, function(err, data) {
         if (err) {
             done(err);
@@ -98,8 +98,7 @@ https://mongoosejs.com/docs/tutorials/dates.html
             done(null, data);
         }
     });
-    */
-
+    
     /*
     let user = User.findOne({_id: userId}, {"log.date": {"$gte": from, "$lte": to}}, function(err, data) {
         if (err) {
@@ -169,13 +168,15 @@ const filter = { date: { $gte: '2020-04-01' } };
     });
     */
 
-    
-   let user = User.findOne({_id: userId})
+    /*
+   let user = User.findOne({_id: userId}))
+
         .populate({
             path: 'log',
-            match: { date: {$gte: '2020-05-01'} }
+            match: { date: {$gte: '2020-05-01'} },
+            select: 'date'
         })
-        //.populate('log')
+        
         .exec(function(err, data) {
             if (err) {
                 done(err);
@@ -184,7 +185,7 @@ const filter = { date: { $gte: '2020-04-01' } };
                 done(null, data);
             }
         });
-    
+    */
 
 }
 
@@ -253,7 +254,7 @@ const getExerciseLog = function (req, res, next) {
 
     //console.log(`from: ${from}, to: ${to}`);
 
-    const userLog = findOneUser(req.query.userId, from, to, function (err, data) {
+    const userLog = findOneUser(req.query.userId, function (err, data) {
         if (err) {
             return next(err);
         }
