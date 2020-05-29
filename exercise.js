@@ -111,7 +111,21 @@ https://mongoosejs.com/docs/tutorials/dates.html
     });
     */
 
-   let user = User.findOne({"_id": userId, "log.date": {"$gte": from}}, function(err, data) {
+    /*
+   let user = User.findOne({"_id": userId, "log.date": {"$gte": from, "$lte": to}}, function(err, data) {
+    if (err) {
+        done(err);
+    }
+    else {
+        done(null, data);
+    }
+    */
+
+   let user = User.findOne({
+       _id: userId, log: 
+        {
+            $elemMatch: { description: "Cycling" }
+        }}, function(err, data) {
     if (err) {
         done(err);
     }
