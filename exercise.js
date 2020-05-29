@@ -185,6 +185,16 @@ const getAllUsers = function (req, res, next) {
     });
 };
 
+const isValidDate = (string) => {
+    let date = new Date(string);
+
+    if (Object.prototype.toString.call(date) === "[object Date]" && !isNaN(date.getTime())) {
+        return true;
+    }
+
+    return false;
+}
+
 const getExerciseLog = function (req, res, next) {
     let from = req.query.from || 0; //set from variable equal to req.query.from if it exists or otherwise assign it to 0
     let to = req.query.to || 0; //set to variable equal to req.query.to if it exists or otherwise assign it to 0
@@ -201,13 +211,11 @@ const getExerciseLog = function (req, res, next) {
             return element.date >= new Date(from + "T04:00:00.000+00:00") && element.date <= new Date(to + "T04:00:00.000+00:00")
         });
 
-        console.log(logArray);
+        console.log(isValidDate("2020-05-30"));
 
         if (limit) { //a limit value was defined in req.query.limit
             logArray = logArray.slice(0, limit);
         }
-
-        console.log(logArray);
 
         res.json({
             _id: data._id,
