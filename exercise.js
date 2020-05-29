@@ -128,9 +128,10 @@ const addNewExercise = function(req, res, next) {
         else {
             res.json(
                 {
-                    _id: data._id,
                     username: data.username,
-                    log: data.log
+                    description: req.body.description,
+                    duration: parseInt(req.body.duration),
+                    date: new Date(req.body.date)
                 }
             );
         }
@@ -184,6 +185,7 @@ const getExerciseLog = function (req, res, next) {
         if (!isNaN(req.query.limit)) { //a valid number was provided for req.query.limit
             logArray = logArray.slice(0, req.query.limit); //slice the array up to the given limit
         }
+
 
         res.json({
             _id: data._id,
