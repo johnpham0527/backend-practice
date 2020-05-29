@@ -196,12 +196,20 @@ const getExerciseLog = function (req, res, next) {
         if (err) {
             return next(err);
         }
+
+        let logArray = data.log.filter((element, index) => {
+            console.log(element);
+            return element.date >= new Date(from + "T04:00:00.000+00:00") && element.date <= new Date(to + "T04:00:00.000+00:00")
+        });
+
+        console.log(logArray);
+
         res.json({
             _id: data._id,
             username: data.username,
-            log: data.log.filter((element, index) => {
-                element.date >= from && element.date <= to && index < limit
-            })
+            //log: data.log
+            log: logArray
+            
         });
     });
 };
