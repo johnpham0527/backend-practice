@@ -134,7 +134,8 @@ https://mongoosejs.com/docs/tutorials/dates.html
 });*/
 
 let user = User.find(   {_id: userId},
-                        {log: { $elemMatch: {description: "Cycling"} } },
+                        //{log: { $elemMatch: {description: "Running"} } },
+                        {log: { $elemMatch: {date: {$gte: '2020-05-01'}} } },
                          function(err, data) {
     if (err) {
         done(err);
@@ -209,7 +210,7 @@ const getExerciseLog = function (req, res, next) {
     let from = req.query.from || 0; //set from variable equal to req.query.from if it exists or otherwise assign it to 0
     let to = req.query.to || 0; //set to variable equal to req.query.to if it exists or otherwise assign it to 0
 
-    console.log(`from: ${from}, to: ${to}`);
+    //console.log(`from: ${from}, to: ${to}`);
 
     const userLog = findOneUser(req.query.userId, from, to, function (err, data) {
         if (err) {
@@ -222,7 +223,13 @@ const getExerciseLog = function (req, res, next) {
             data.log : //it was not specified, so use the entire data.log array
             data.log.slice(0, req.query.limit); //it was specified, so use the given limit number
         */
+        
+        console.log(data);
 
+        //res.send(`The returned data's ID is ${data[0]._id} and the log is ${data[0].log[0]}`);
+        res.json(data[0]);
+
+        /*
         res.json(
             {
                 _id: data._id,
@@ -230,6 +237,7 @@ const getExerciseLog = function (req, res, next) {
                 //count: data._doc.count
             }
         );
+        */
     });
 };
 
