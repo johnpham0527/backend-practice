@@ -95,39 +95,6 @@ const findOneUser = function(userId, done) {
     });
 }
 
-const findOneUserLog = function (userId, from, to, limit, done) {
-//Need to check values for from, to, and limit. If they are zero, then don't use them
-//$if? $where? Not sure if I can use conditionals...
-
-    User.aggregate([
-            {
-                $match: { _id: mongoose.Types.ObjectId(userId)}
-            },
-            {   
-                $unwind: '$log'
-            },
-            {
-                $match: {'log.date': { 
-                    $gte: new Date(from + 'T04:00:00.000+00:00'),
-                    $lte: new Date(to + 'T04:00:00.000+00:00')
-                }}
-            },
-            {
-                $limit: parseInt(limit)
-            },
-        ],
-        function (err, data) {
-            if (err) {
-                done(err);
-            }
-            else {
-                console.log(data);
-                done(null, data);
-            } 
-    });
-
-}
-
 /*** Exercise Tracker Controller */
 const addNewUser = function(req, res, next) {
 
