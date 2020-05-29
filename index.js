@@ -105,7 +105,7 @@ var findAllByFood = function (food, done) {
       done(err);
     }
     else {
-      done(null, data);
+      done(null, peopleFound);
     }
   });
 }
@@ -318,6 +318,21 @@ app.post('/find-all-gte-age', function (req, res, next) {
   /*
   console.log(givenAge);
   res.send(`The given age is ${givenAge}`);
+  */
+})
+
+app.post('/find-all-by-food', function (req, res, next) {
+  var givenFood = req.body.food;
+
+  res.send(`The given food is ${givenFood}`);
+
+  /*
+  findAllByFood(givenFood, function (err, data) {
+    if (err) {
+      return next(err);
+    }
+    res.json(data);
+  })
   */
 })
 
