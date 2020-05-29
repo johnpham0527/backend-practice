@@ -90,6 +90,15 @@ Person.find({name: personName}, function (err, personFound) {
 
 };
 
+var findPeopleGteAge = function(age, done) {
+  Person.find({age: { $gte: age }}, function (err, people) {
+    if (err) {
+      done(err);
+    }
+    done(null, people);
+  })
+}
+
 var findOneByFood = function(food, done) {
 
     Person.findOne({favoriteFoods: food}, function(err, personFound) {
@@ -284,6 +293,10 @@ app.post('/find-one-by-food', function(req, res, next) {
       });
     });
   });
+
+app.post('/find-all-by-age', function (req, res, next) {
+
+})
 
 app.get('/find-by-id/:userID', function(req, res, next) {
     var t = setTimeout(() => { next({message: 'timeout'}) }, timeout);
