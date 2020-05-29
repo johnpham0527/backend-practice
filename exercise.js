@@ -97,7 +97,7 @@ const findOneUser = function(userId, done) {
 /*** Exercise Tracker Controller */
 const addNewUser = function(req, res, next) {
 
-    createAndSaveUser(req.body.newUser, function(err, data) {
+    createAndSaveUser(req.body.username, function(err, data) {
         if (err) {
             return next(err);
         }
