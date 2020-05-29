@@ -187,7 +187,8 @@ const getExerciseLog = function (req, res, next) {
 
         res.json({
             _id: data._id,
-            log: logArray
+            log: logArray,
+            count: data.log.length
         });
     });
 };
