@@ -110,7 +110,7 @@ https://mongoosejs.com/docs/tutorials/dates.html
             {
                 //$match: {'log.description': 'Walking'}
                 //$match: {'log.duration': 10}
-                $match: {'log.date': new Date('2020-05-27'+'T04:00:00.000+00:00')}
+                $match: {'log.date': { $gte: new Date('2020-05-29'+'T04:00:00.000+00:00')}}
             }
         ],
         function (err, data) {
