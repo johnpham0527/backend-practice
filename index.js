@@ -294,8 +294,20 @@ app.post('/find-one-by-food', function(req, res, next) {
     });
   });
 
-app.post('/find-all-by-age', function (req, res, next) {
+app.post('/find-all-gte-age', function (req, res, next) {
+  var givenAge = req.body.age;
 
+  findPeopleGteAge(givenAge, function(err, data) {
+    if (err) {
+      return next(err);
+    }
+    res.json(data);
+  })
+
+  /*
+  console.log(givenAge);
+  res.send(`The given age is ${givenAge}`);
+  */
 })
 
 app.get('/find-by-id/:userID', function(req, res, next) {
