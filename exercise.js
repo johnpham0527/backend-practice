@@ -95,8 +95,8 @@ const findOneUser = function(userId, done) {
     });
 }
 
-const findOneUserLog = function (userId, from, to, done) {
-//Need to check values for from and to. If they are zero, then don't use them
+const findOneUserLog = function (userId, from, to, limit, done) {
+//Need to check values for from, to, and limit. If they are zero, then don't use them
 
     User.aggregate([
             {
@@ -113,6 +113,9 @@ const findOneUserLog = function (userId, from, to, done) {
                     $lte: new Date(to + 'T04:00:00.000+00:00')
                 }}
             },
+            {
+                $limit: parseInt(limit)
+            }
 
         ],
         function (err, data) {
@@ -189,10 +192,10 @@ const getExerciseLog = function (req, res, next) {
 
     let from = req.query.from || 0; //set from variable equal to req.query.from if it exists or otherwise assign it to 0
     let to = req.query.to || 0; //set to variable equal to req.query.to if it exists or otherwise assign it to 0
+    let limit = req.query.limit || 0;
 
-    //console.log(`from: ${from}, to: ${to}`);
 
-    const userLog = findOneUserLog(req.query.userId, from, to, function (err, data) {
+    const userLog = findOneUserLog(req.query.userId, from, to, limit, function (err, data) {
         if (err) {
             return next(err);
         }
