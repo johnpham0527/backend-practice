@@ -89,6 +89,7 @@ const findOneUser = function (userId, from, to, done) {
 https://mongoosejs.com/docs/tutorials/dates.html
 */
 
+/*
     let user = User.findOne({_id: userId}, function(err, data) {
         if (err) {
             done(err);
@@ -97,6 +98,28 @@ https://mongoosejs.com/docs/tutorials/dates.html
             done(null, data);
         }
     });
+    */
+
+    /*
+    let user = User.findOne({_id: userId}, {"log.date": {"$gte": from, "$lte": to}}, function(err, data) {
+        if (err) {
+            done(err);
+        }
+        else {
+            done(null, data);
+        }
+    });
+    */
+
+   let user = User.findOne({"_id": userId, "log.date": {"$gte": from}}, function(err, data) {
+    if (err) {
+        done(err);
+    }
+    else {
+        done(null, data);
+    }
+});
+
 }
 
 /*** Exercise Tracker Controller */
