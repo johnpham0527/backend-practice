@@ -121,11 +121,19 @@ https://mongoosejs.com/docs/tutorials/dates.html
     }
     */
 
+    /*
    let user = User.findOne({
        _id: userId, log: 
-        {
-            $elemMatch: { description: "Cycling" }
-        }}, function(err, data) {
+            {$elemMatch: {description: "Cycling"}}}, function(err, data) {
+    if (err) {
+        done(err);
+    }
+    else {
+        done(null, data);
+    }
+});*/
+
+let user = User.findById({_id: userId, log: {$elemMatch: {description: "Cycling"}}}, function(err, data) {
     if (err) {
         done(err);
     }
