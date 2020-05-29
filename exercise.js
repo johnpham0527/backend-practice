@@ -207,11 +207,26 @@ const getExerciseLog = function (req, res, next) {
             return next(err);
         }
 
-        let logArray = data.log.filter((element, index) => {
+        let logArray = data.log;
+
+        if (isValidDate(req.query.from)) { //a valid "from" date was provided
+            logArray = logArray.filter((element, index) => {
+                return element.date >= new Date(from + "T04:00:00.000+00:00")
+            });
+        }
+
+        if (isValidDate(req.query.to)) { //a valid "to" date was provided
+            logArray = logArray.filter((element, index) => {
+                return element.date <= new Date(to + "T04:00:00.000+00:00")
+            });
+        }
+
+        /*
+        logArray = data.log.filter((element, index) => {
             return element.date >= new Date(from + "T04:00:00.000+00:00") && element.date <= new Date(to + "T04:00:00.000+00:00")
         });
+        */
 
-        console.log(isValidDate("2020-05-30"));
 
         if (limit) { //a limit value was defined in req.query.limit
             logArray = logArray.slice(0, limit);
