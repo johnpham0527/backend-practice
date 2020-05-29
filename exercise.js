@@ -187,6 +187,7 @@ const getExerciseLog = function (req, res, next) {
 
         res.json({
             _id: data._id,
+            username: data.username,
             log: logArray,
             count: data.log.length
         });
