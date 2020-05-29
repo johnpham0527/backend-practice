@@ -108,7 +108,9 @@ https://mongoosejs.com/docs/tutorials/dates.html
                 $unwind: '$log'
             },
             {
-                $match: {'log.description': 'Biking'}
+                //$match: {'log.description': 'Walking'}
+                //$match: {'log.duration': 10}
+                $match: {'log.date': new Date('2020-05-27'+'T04:00:00.000+00:00')}
             }
         ],
         function (err, data) {
@@ -120,23 +122,6 @@ https://mongoosejs.com/docs/tutorials/dates.html
                 done(null, data);
             } 
     });
-
-
-    /*
-   let user = User.findOne({_id: userId})
-        .populate({
-            path: 'log',
-            match: { date: '2020-05-28' }
-        })    
-        .exec(function(err, data) {
-            if (err) {
-                done(err);
-            }
-            else {
-                done(null, data);
-            }
-        });
-    */
 
 }
 
@@ -205,7 +190,7 @@ const getExerciseLog = function (req, res, next) {
 
     //console.log(`from: ${from}, to: ${to}`);
 
-    const userLog = findOneUser(req.query.userId, function (err, data) {
+    const userLog = findOneUserLog(req.query.userId, function (err, data) {
         if (err) {
             return next(err);
         }
