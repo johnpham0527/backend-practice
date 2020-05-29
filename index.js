@@ -99,6 +99,17 @@ var findPeopleGteAge = function(age, done) {
   })
 }
 
+var findAllByFood = function (food, done) {
+  Person.find({favoriteFoods: food}, function(err, peopleFound) {
+    if (err) {
+      done(err);
+    }
+    else {
+      done(null, data);
+    }
+  });
+}
+
 var findOneByFood = function(food, done) {
 
     Person.findOne({favoriteFoods: food}, function(err, personFound) {
