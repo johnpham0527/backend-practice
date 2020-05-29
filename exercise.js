@@ -133,7 +133,9 @@ https://mongoosejs.com/docs/tutorials/dates.html
     }
 });*/
 
-let user = User.findById({_id: userId, log: {$elemMatch: {description: "Cycling"}}}, function(err, data) {
+let user = User.find(   {_id: userId},
+                        {log: { $elemMatch: {description: "Cycling"} } },
+                         function(err, data) {
     if (err) {
         done(err);
     }
@@ -213,17 +215,19 @@ const getExerciseLog = function (req, res, next) {
         if (err) {
             return next(err);
         }
+        /*
         data._doc.count = data.log.length; //add the length of the log array to count property
 
         let returnLog = typeof req.query.limit === undefined ? //was the limit query parameter specified?
             data.log : //it was not specified, so use the entire data.log array
             data.log.slice(0, req.query.limit); //it was specified, so use the given limit number
+        */
 
         res.json(
             {
                 _id: data._id,
-                log: returnLog,
-                count: data._doc.count
+                //log: returnLog,
+                //count: data._doc.count
             }
         );
     });
