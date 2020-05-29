@@ -95,10 +95,8 @@ const findOneUser = function(userId, done) {
     });
 }
 
-const findOneUserLog = function (userId, done) {
-/* I need to update this function to use querying by date ranges
-https://mongoosejs.com/docs/tutorials/dates.html
-*/
+const findOneUserLog = function (userId, from, to, done) {
+//Need to check values for from and to. If they are zero, then don't use them
 
     User.aggregate([
             {
@@ -111,8 +109,8 @@ https://mongoosejs.com/docs/tutorials/dates.html
                 //$match: {'log.description': 'Walking'}
                 //$match: {'log.duration': 10}
                 $match: {'log.date': { 
-                    $gte: new Date('2020-05-28'+'T04:00:00.000+00:00'),
-                    $lte: new Date('2020-05-29'+'T04:00:00.000+00:00')
+                    $gte: new Date(from + 'T04:00:00.000+00:00'),
+                    $lte: new Date(to + 'T04:00:00.000+00:00')
                 }}
             },
 
@@ -194,7 +192,7 @@ const getExerciseLog = function (req, res, next) {
 
     //console.log(`from: ${from}, to: ${to}`);
 
-    const userLog = findOneUserLog(req.query.userId, function (err, data) {
+    const userLog = findOneUserLog(req.query.userId, from, to, function (err, data) {
         if (err) {
             return next(err);
         }
