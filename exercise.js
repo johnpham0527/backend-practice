@@ -51,7 +51,7 @@ const createAndSaveUser = function (username, done) {
 }
 
 const addExercise = function (userId, desc, dur, date_, done) {
-    const user = findOneUser(userId, function(err, userFound) {
+    findOneUser(userId, function(err, userFound) {
         if (err) {
             done(err);
         }
@@ -74,7 +74,7 @@ const addExercise = function (userId, desc, dur, date_, done) {
 };
 
 const findAllUsers = function (done) {
-    const allUsers = User.find({}, function (err, data) {
+    User.find({}, function (err, data) {
         if (err) {
             done(err);
         }
@@ -85,7 +85,7 @@ const findAllUsers = function (done) {
 }
 
 const findOneUser = function(userId, done) {
-    let user = User.findOne({_id: userId}, function(err, data) {
+   User.findOne({_id: userId}, function(err, data) {
         if (err) {
             done(err);
         }
@@ -98,7 +98,7 @@ const findOneUser = function(userId, done) {
 /*** Exercise Tracker Controller */
 const addNewUser = function(req, res, next) {
 
-    const newUser = createAndSaveUser(req.body.newUser, function(err, data) {
+    createAndSaveUser(req.body.newUser, function(err, data) {
         if (err) {
             return next(err);
         }
