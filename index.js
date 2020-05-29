@@ -324,16 +324,16 @@ app.post('/find-all-gte-age', function (req, res, next) {
 app.post('/find-all-by-food', function (req, res, next) {
   var givenFood = req.body.food;
 
-  res.send(`The given food is ${givenFood}`);
+  //res.send(`The given food is ${givenFood}`);
 
-  /*
+  
   findAllByFood(givenFood, function (err, data) {
     if (err) {
       return next(err);
     }
     res.json(data);
   })
-  */
+  
 })
 
 app.get('/find-by-id/:userID', function(req, res, next) {
