@@ -34,7 +34,6 @@ const userSchema = new Schema(
     }
 )
 
-const Exercise = mongoose.model("Exercise", exerciseSchema);
 const User = mongoose.model("ExerciseUser", userSchema);
 
 const createAndSaveUser = function (username, done) {
