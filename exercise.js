@@ -198,9 +198,14 @@ const getExerciseLog = function (req, res, next) {
         }
 
         let logArray = data.log.filter((element, index) => {
-            console.log(element);
             return element.date >= new Date(from + "T04:00:00.000+00:00") && element.date <= new Date(to + "T04:00:00.000+00:00")
         });
+
+        console.log(logArray);
+
+        if (limit) { //a limit value was defined in req.query.limit
+            logArray = logArray.slice(0, limit);
+        }
 
         console.log(logArray);
 
