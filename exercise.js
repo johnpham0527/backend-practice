@@ -126,13 +126,15 @@ const addNewExercise = function(req, res, next) {
             return next(err);
         }
         else {
+            let returnDate = new Date(req.body.date);
+
             res.json(
                 {
-                    userId: data._id,
                     username: data.username,
                     description: req.body.description,
                     duration: parseInt(req.body.duration),
-                    date: new Date(req.body.date)
+                    userId: data._id,
+                    date: returnDate.toDateString()
                 }
             );
         }
