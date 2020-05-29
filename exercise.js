@@ -188,39 +188,17 @@ const getAllUsers = function (req, res, next) {
 };
 
 const getExerciseLog = function (req, res, next) {
-    /* Need to implement from and to query parameters*/
-
     let from = req.query.from || 0; //set from variable equal to req.query.from if it exists or otherwise assign it to 0
     let to = req.query.to || 0; //set to variable equal to req.query.to if it exists or otherwise assign it to 0
-    let limit = req.query.limit || 0;
+    let limit = req.query.limit || 0; //set to variable equal to req.query.to if it exists or otherwise assign it to 0
 
 
     const userLog = findOneUserLog(req.query.userId, from, to, limit, function (err, data) {
         if (err) {
             return next(err);
         }
-        /*
-        data._doc.count = data.log.length; //add the length of the log array to count property
 
-        let returnLog = typeof req.query.limit === undefined ? //was the limit query parameter specified?
-            data.log : //it was not specified, so use the entire data.log array
-            data.log.slice(0, req.query.limit); //it was specified, so use the given limit number
-        */
-        
-        console.log(`The data is ${data}`);
-
-        //res.send(`The returned data's ID is ${data[0]._id} and the log is ${data[0].log[0]}`);
         res.json(data);
-
-        /*
-        res.json(
-            {
-                _id: data._id,
-                //log: returnLog,
-                //count: data._doc.count
-            }
-        );
-        */
     });
 };
 
