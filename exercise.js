@@ -191,12 +191,18 @@ const getExerciseLog = function (req, res, next) {
     let limit = req.query.limit || 0; //set to variable equal to req.query.to if it exists or otherwise assign it to 0
 
 
-    const userLog = findOneUserLog(req.query.userId, from, to, limit, function (err, data) {
+    //const userLog = findOneUserLog(req.query.userId, from, to, limit, function (err, data) {
+    const userLog = findOneUser(req.query.userId, function (err, data) {
         if (err) {
             return next(err);
         }
-
-        res.json(data);
+        res.json({
+            _id: data._id,
+            username: data.username,
+            log: data.log.filter((element, index) => {
+                element.date >= from && element.date <= to && index < limit
+            })
+        });
     });
 };
 
