@@ -169,14 +169,13 @@ const filter = { date: { $gte: '2020-04-01' } };
     });
     */
 
+    
    let user = User.findOne({_id: userId})
-        /*
         .populate({
             path: 'log',
-            match: { date: {$gte: '2020-04-01'} }
+            match: { date: {$gte: '2020-05-01'} }
         })
-        */
-        .populate('log')
+        //.populate('log')
         .exec(function(err, data) {
             if (err) {
                 done(err);
@@ -185,6 +184,8 @@ const filter = { date: { $gte: '2020-04-01' } };
                 done(null, data);
             }
         });
+    
+
 }
 
 /*** Exercise Tracker Controller */
