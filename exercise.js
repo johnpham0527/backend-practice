@@ -196,12 +196,6 @@ const isValidDate = (string) => {
 }
 
 const getExerciseLog = function (req, res, next) {
-    let from = req.query.from || 0; //set from variable equal to req.query.from if it exists or otherwise assign it to 0
-    let to = req.query.to || 0; //set to variable equal to req.query.to if it exists or otherwise assign it to 0
-    let limit = req.query.limit || 0; //set to variable equal to req.query.to if it exists or otherwise assign it to 0
-
-
-    //const userLog = findOneUserLog(req.query.userId, from, to, limit, function (err, data) {
     const userLog = findOneUser(req.query.userId, function (err, data) {
         if (err) {
             return next(err);
@@ -210,34 +204,24 @@ const getExerciseLog = function (req, res, next) {
         let logArray = data.log;
 
         if (isValidDate(req.query.from)) { //a valid "from" date was provided
-            logArray = logArray.filter((element, index) => {
-                return element.date >= new Date(from + "T04:00:00.000+00:00")
+            logArray = logArray.filter((element) => {
+                return element.date >= new Date(req.query.from + "T04:00:00.000+00:00") //return elements with date greater than or equal to the "from" date
             });
         }
 
         if (isValidDate(req.query.to)) { //a valid "to" date was provided
-            logArray = logArray.filter((element, index) => {
-                return element.date <= new Date(to + "T04:00:00.000+00:00")
+            logArray = logArray.filter((element) => {
+                return element.date <= new Date(req.query.to + "T04:00:00.000+00:00") //return elements with date less than or equal to the "to" date
             });
         }
 
-        /*
-        logArray = data.log.filter((element, index) => {
-            return element.date >= new Date(from + "T04:00:00.000+00:00") && element.date <= new Date(to + "T04:00:00.000+00:00")
-        });
-        */
-
-
-        if (limit) { //a limit value was defined in req.query.limit
-            logArray = logArray.slice(0, limit);
+        if (!isNaN(req.query.limit)) { //a valid number was provided for req.query.limit
+            logArray = logArray.slice(0, req.query.limit); //slice the array up to the given limit
         }
 
         res.json({
             _id: data._id,
-            username: data.username,
-            //log: data.log
             log: logArray
-            
         });
     });
 };
