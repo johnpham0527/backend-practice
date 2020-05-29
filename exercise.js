@@ -149,7 +149,8 @@ let user = User.find(   {_id: userId},
 });
 */
 
-    const filter = { date: { $gte: '2020-04-01' } };
+/*
+const filter = { date: { $gte: '2020-04-01' } };
 
     let user = User.aggregate([
         {
@@ -166,7 +167,24 @@ let user = User.find(   {_id: userId},
                 done(null, data);
             } 
     });
+    */
 
+   let user = User.findOne({_id: userId})
+        /*
+        .populate({
+            path: 'log',
+            match: { date: {$gte: '2020-04-01'} }
+        })
+        */
+        .populate('log')
+        .exec(function(err, data) {
+            if (err) {
+                done(err);
+            }
+            else {
+                done(null, data);
+            }
+        });
 }
 
 /*** Exercise Tracker Controller */
@@ -246,10 +264,10 @@ const getExerciseLog = function (req, res, next) {
             data.log.slice(0, req.query.limit); //it was specified, so use the given limit number
         */
         
-        console.log(data);
+        console.log(`The data is ${data}`);
 
         //res.send(`The returned data's ID is ${data[0]._id} and the log is ${data[0].log[0]}`);
-        res.json(data[0]);
+        res.json(data);
 
         /*
         res.json(
