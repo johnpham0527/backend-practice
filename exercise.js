@@ -89,7 +89,7 @@ const findOneUser = function (userId, done) {
 https://mongoosejs.com/docs/tutorials/dates.html
 */
 
-
+/*
     let user = User.findOne({_id: userId}, function(err, data) {
         if (err) {
             done(err);
@@ -98,7 +98,8 @@ https://mongoosejs.com/docs/tutorials/dates.html
             done(null, data);
         }
     });
-    
+  */
+
     /*
     let user = User.findOne({_id: userId}, {"log.date": {"$gte": from, "$lte": to}}, function(err, data) {
         if (err) {
@@ -148,13 +149,18 @@ let user = User.find(   {_id: userId},
 });
 */
 
-/*
-const filter = { date: { $gte: '2020-04-01' } };
 
-    let user = User.aggregate([
-        {
-            $match: { _id: userId}
-        }],
+    User.aggregate([
+            {
+                $match: { _id: mongoose.Types.ObjectId(userId)}
+            },
+            {   
+                $unwind: '$log'
+            },
+            {
+                $match: {'log.description': 'Biking'}
+            }
+        ],
 
         //{ $match: { log: {description: "Running"}} }
         function (err, data) {
@@ -166,17 +172,14 @@ const filter = { date: { $gte: '2020-04-01' } };
                 done(null, data);
             } 
     });
-    */
+
 
     /*
-   let user = User.findOne({_id: userId}))
-
+   let user = User.findOne({_id: userId})
         .populate({
             path: 'log',
-            match: { date: {$gte: '2020-05-01'} },
-            select: 'date'
-        })
-        
+            match: { date: '2020-05-28' }
+        })    
         .exec(function(err, data) {
             if (err) {
                 done(err);
