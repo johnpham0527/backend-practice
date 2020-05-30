@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const mongoose = require('mongoose');
 require('dotenv').config({ path: '.env' });
+var assert = require('assert');
 
 mongoose.connect(
     process.env.MONGO_URI,
@@ -199,11 +200,17 @@ const getExerciseLog = function (req, res, next) {
     });
 };
 
+
+const test4 = function (req, res, next) {
+
+}
+
 /*** Exercise Tracker Router */
 router.post('/new-user', addNewUser);
 router.post('/add', addNewExercise);
 router.get('/users', getAllUsers);
 router.get('/log', getExerciseLog);
+router.get('test4', test4);
 
 /*** Exercise Tracker Module Export */
 module.exports = router;
