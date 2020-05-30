@@ -116,11 +116,10 @@ const addNewExercise = function(req, res, next) {
     //Check to see if a date was inputted
     let date2;
     if (req.body.date.length > 0) {
-        date2 = new Date(req.body.date);
+        date2 = new Date(req.body.date).toDateString;
     }
     else {
-        let today = new Date();
-        date2 = new Date(today.getFullYear() + '/' + (today.getMonth()+1) + '/' + today.getDate());
+        date2 = new Date().toDateString;
     }
 
     addExercise(req.body.userId, req.body.description, req.body.duration, date2, function (err, data) {
@@ -129,13 +128,14 @@ const addNewExercise = function(req, res, next) {
             return next(err);
         }
         else {
+ 
             res.json(
                 {
                     username: data.username,
                     description: req.body.description,
                     duration: parseInt(req.body.duration),
                     userId: data._id,
-                    date: date2.toDateString()
+                    date: date2
                 }
             );
         }
@@ -204,6 +204,16 @@ const url = "http://localhost:3000";
 
 const test4 = async function (request, response, next) {
 
+    /*
+    const testDate = "1990-01-01"
+    const testDate2 = new Date(testDate).toUTCString();
+    console.log(`testDate2 is ${testDate2}`);
+    //const testDate3 = testDate2.toDateString();
+    //console.log(`Converting date 1990-01-01T00:00:00.000Z to string: ${testDate2}`);
+    //console.log(`testDate3 is ${testDate3}`);
+    */
+
+    
     const res = await fetch(url + '/api/exercise/new-user', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -227,6 +237,12 @@ const test4 = async function (request, response, next) {
         });
         if (addRes.ok) {
           const actual = await addRes.json();
+          console.log(`Actual date is ${actual.date}`);
+          //let actualDateString = new Date(actual.date).toDateString();
+          let actualDateString = new Date("1990-01-02").toDateString();
+          console.log(typeof actualDateString);
+          console.log(`Actual date string is ${actualDateString}`);
+          console.log(`Expected date is ${expected.date}`);
           assert.deepEqual(actual, expected);
         } else {
           throw new Error(`${addRes.status} ${addRes.statusText}`);
@@ -237,16 +253,8 @@ const test4 = async function (request, response, next) {
 
     //response.send("Running tests...");
 
-    /*
-    const res2 = await fetch(url + '/api/exercise/users');
 
-    if (res2.ok) {
-      const data = await res2.json();
-      console.log(Array.isArray(data));
-    } else {
-      throw new Error(`${res2.status} ${res2.statusText}`);
-    }
-    */
+
 }
 
 /*** Exercise Tracker Router */
