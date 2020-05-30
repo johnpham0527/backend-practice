@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const mongoose = require('mongoose');
 require('dotenv').config({ path: '.env' });
+var assert = require('assert');
 const fetch = require('node-fetch');
 
 mongoose.connect(
@@ -113,29 +114,28 @@ const addNewUser = function(req, res, next) {
 const addNewExercise = function(req, res, next) {
     
     //Check to see if a date was inputted
-    let date;
+    let date2;
     if (req.body.date.length > 0) {
-        date = req.body.date;
+        date2 = new Date(req.body.date);
     }
     else {
         let today = new Date();
-        date = today.getFullYear() + '/' + (today.getMonth()+1) + '/' + today.getDate();
+        date2 = new Date(today.getFullYear() + '/' + (today.getMonth()+1) + '/' + today.getDate());
     }
 
-    addExercise(req.body.userId, req.body.description, req.body.duration, date, function (err, data) {
+    addExercise(req.body.userId, req.body.description, req.body.duration, date2, function (err, data) {
         if (err) {
+            res.send("A valid userId needs to be specified.");
             return next(err);
         }
         else {
-            let returnDate = new Date(req.body.date);
-
             res.json(
                 {
                     username: data.username,
                     description: req.body.description,
                     duration: parseInt(req.body.duration),
                     userId: data._id,
-                    date: returnDate.toDateString()
+                    date: date2.toDateString()
                 }
             );
         }
@@ -202,8 +202,42 @@ const getExerciseLog = function (req, res, next) {
 
 const url = "http://localhost:3000";
 
-const test4 = async function (req, res, next) {
+const test4 = async function (request, response, next) {
 
+    const res = await fetch(url + '/api/exercise/new-user', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `username=jpham_test_${Date.now()}`.substr(0, 29)
+      });
+
+      if (res.ok) {
+        const { _id, username } = await res.json();
+        const expected = {
+          username,
+          description: 'test',
+          duration: 60,
+          _id,
+          date: 'Mon Jan 01 1990'
+        };
+
+        const addRes = await fetch(url + '/api/exercise/add', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: `userId=${_id}&description=${expected.description}&duration=${expected.duration}&date=1990-01-01`
+        });
+        if (addRes.ok) {
+          const actual = await addRes.json();
+          assert.deepEqual(actual, expected);
+        } else {
+          throw new Error(`${addRes.status} ${addRes.statusText}`);
+        }
+      } else {
+        throw new Error(`${res.status} ${res.statusText}`);
+      }
+
+    //response.send("Running tests...");
+
+    /*
     const res2 = await fetch(url + '/api/exercise/users');
 
     if (res2.ok) {
@@ -212,7 +246,7 @@ const test4 = async function (req, res, next) {
     } else {
       throw new Error(`${res2.status} ${res2.statusText}`);
     }
-
+    */
 }
 
 /*** Exercise Tracker Router */
