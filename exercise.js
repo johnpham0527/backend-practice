@@ -166,7 +166,7 @@ const isValidDate = (string) => {
 }
 
 const getExerciseLog = function (req, res, next) {
-    const userLog = findOneUser(req.query.userId, function (err, data) {
+    findOneUser(req.query.userId, function (err, data) {
         if (err) {
             return next(err);
         }
