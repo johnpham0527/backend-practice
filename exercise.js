@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 const mongoose = require('mongoose');
 require('dotenv').config({ path: '.env' });
-var assert = require('assert');
 const fetch = require('node-fetch');
 
 mongoose.connect(
@@ -208,8 +207,8 @@ const test4 = async function (req, res, next) {
     const res2 = await fetch(url + '/api/exercise/users');
 
     if (res2.ok) {
-      const data = await res.json();
-      //assert.isArray(data);
+      const data = await res2.json();
+      console.log(Array.isArray(data));
     } else {
       throw new Error(`${res2.status} ${res2.statusText}`);
     }
