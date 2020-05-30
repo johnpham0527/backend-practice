@@ -3,6 +3,7 @@ var router = express.Router();
 const mongoose = require('mongoose');
 require('dotenv').config({ path: '.env' });
 var assert = require('assert');
+const fetch = require('node-fetch');
 
 mongoose.connect(
     process.env.MONGO_URI,
@@ -200,8 +201,18 @@ const getExerciseLog = function (req, res, next) {
     });
 };
 
+const url = "http://localhost:3000";
 
-const test4 = function (req, res, next) {
+const test4 = async function (req, res, next) {
+
+    const res2 = await fetch(url + '/api/exercise/users');
+
+    if (res2.ok) {
+      const data = await res.json();
+      //assert.isArray(data);
+    } else {
+      throw new Error(`${res2.status} ${res2.statusText}`);
+    }
 
 }
 
@@ -210,7 +221,7 @@ router.post('/new-user', addNewUser);
 router.post('/add', addNewExercise);
 router.get('/users', getAllUsers);
 router.get('/log', getExerciseLog);
-router.get('test4', test4);
+router.get('/test4', test4);
 
 /*** Exercise Tracker Module Export */
 module.exports = router;
