@@ -117,10 +117,10 @@ const addNewExercise = function(req, res, next) {
     //Check to see if a date was inputted
     let date2;
     if (req.body.date.length > 0) {
-        date2 = new Date(req.body.date).toDateString();
+        date2 = new Date(req.body.date).toUTCString();
     }
     else {
-        date2 = new Date().toDateString();
+        date2 = new Date().toUTCString();
     }
 
     addExercise(req.body.userId, req.body.description, req.body.duration, date2, function (err, data) {
@@ -129,14 +129,19 @@ const addNewExercise = function(req, res, next) {
             return next(err);
         }
         else {
+
+            //format date3 string to avoid time zone glitch
+            let date3 = date2.split(' ');
+            date3[0] = date3[0].substring(0, 3);
+            let date4 = date3[0] + ' ' + date3[2] + ' ' + date3[1] + ' ' + date3[3];
  
             res.json(
                 {
                     username: data.username,
                     description: req.body.description,
                     duration: parseInt(req.body.duration),
-                    userId: data._id,
-                    date: date2
+                    _id: data._id,
+                    date: date4
                 }
             );
         }
@@ -239,11 +244,12 @@ const test4 = async function (request, response, next) {
         if (addRes.ok) {
           const actual = await addRes.json();
           console.log(`Actual date is ${actual.date}`);
-          //let actualDateString = new Date(actual.date).toDateString();
-          let actualDateString = new Date("1990-01-02").toDateString();
-          console.log(typeof actualDateString);
-          console.log(`Actual date string is ${actualDateString}`);
           console.log(`Expected date is ${expected.date}`);
+          console.log(actual.date === expected.date);
+          console.log(actual.duration === expected.duration);
+          console.log(actual.description === expected.description);
+          console.log(actual.username === expected.username);
+          console.log(actual._id === expected._id);
           assert.deepEqual(actual, expected);
         } else {
           throw new Error(`${addRes.status} ${addRes.statusText}`);
