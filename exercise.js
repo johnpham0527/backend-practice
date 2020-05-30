@@ -117,10 +117,10 @@ const addNewExercise = function(req, res, next) {
     //Check to see if a date was inputted
     let date2;
     if (req.body.date.length > 0) {
-        date2 = new Date(req.body.date).toDateString;
+        date2 = new Date(req.body.date).toDateString();
     }
     else {
-        date2 = new Date().toDateString;
+        date2 = new Date().toDateString();
     }
 
     addExercise(req.body.userId, req.body.description, req.body.duration, date2, function (err, data) {
