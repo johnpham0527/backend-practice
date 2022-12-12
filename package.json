@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/johnpham0527/backend-practice#readme",
   "devDependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-ip": "^1.0.4",
     "ngrok": "^3.2.7",
     "node-fetch": "^2.6.0",
